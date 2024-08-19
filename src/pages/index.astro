@@ -18,15 +18,17 @@ import Copy from "../icons/Copy.astro";
 import Credly from "../icons/Credly.astro";
 import Team from "../icons/Team.astro";
 import Socials from "../components/Socials.astro";
+import Learn from "../icons/Learn.astro";
+import About from "../components/About.astro";
 
 ---
 
 <Layout
 	title="Dhruv Chavda | Portfolio"
-	description="Get to know us better."
+	description="Dhruv Chavda | Portfolio"
 >
 	<main class="px-2">
-		<SectionContainer id="top" class="py-4 lg:py-32 pb-4 lg:pb-44">
+		<SectionContainer id="top" class="py-4 lg:py-36 pb-4 lg:pb-44">
 			<img
 				class="rounded-full size-40 mb-8"
 				src="/pictures/potrait.webp"
@@ -60,16 +62,6 @@ import Socials from "../components/Socials.astro";
 					<span class="opacity-80">and implementing</span>
 					<span class="text-yellow-200">cost-saving strategies</span>
 			</span>
-
-			<!-- <span class="opacity-80">Sigo disfrutando de aprender todo tipo de tecnologías Back y Front,
-				durante mis 	<span class="text-yellow-100/75">más de 3 años de experiencia laboral</span> 
-				he trabajado en el desarrollo de aplicaciones móviles, escritorio y web; 
-				desde la <span class="text-red-100/80">formación</span> de los nuevos programadores 
-				y el <span class="text-red-100/80">trabajo en equipo</span> hasta el 
-				trato  <span class="text-red-100/80">comercial</span> con el cliente, siempre enfocado 
-				en crear soluciones de alta calidad y gran experiencia de usuario. \n helo
-				sd
-	 		</span> -->
 			</h2>
 
 			<nav class="flex gap-4 mt-8 flex-wrap">
@@ -97,6 +89,13 @@ import Socials from "../components/Socials.astro";
 					chavdadhruv0505@gmail.com
 				</SocialPill>
 			</nav>
+		</SectionContainer>
+		<SectionContainer id="About">
+			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+				<Learn class="size-10" />
+				About me 🤷🏻‍♂️
+			</h2>
+			<About />
 		</SectionContainer>
 		<SectionContainer id="skills">
 			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
