@@ -9,7 +9,8 @@ import Instagram from "../icons/Instagram.astro";
 <header class="w-full z-20 top-0 border-b border-gray-600">
     <nav class="container mx-auto lg:w-[740px] flex flex-col lg:flex-row items-center justify-between p-5">
         <div class="id=mailHeader flex space-x-4 md:space-x-3 mb-4 lg:mb-0">
-            <a class="rounded-full text-white flex justify-center items-center gap-x-2 hover:scale-110 hover transition" href="mailto:chavdadhruv0505@gmail.com">
+            <!-- href="mailto:chavdadhruv0505@gmail.com" -->
+            <a id="copyButton" class="rounded-full text-white flex justify-center items-center gap-x-2 hover:scale-110 hover transition">
                 <Gmail class="size-4 lg:size-6" />
                 chavdadhruv0505@gmail.com
             </a>
@@ -29,3 +30,52 @@ import Instagram from "../icons/Instagram.astro";
         </div>
     </nav>
 </header>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const mailButton = document.getElementById("mailButton");
+		const copyButton = document.getElementById("copyButton");
+
+		if (mailButton) {
+			mailButton.addEventListener("click", () => {
+				const subject = encodeURIComponent("Contacto Portfolio");
+				const email = "pav.dev3@gmail.com";
+				window.location.href = `mailto:${email}?subject=${subject}`;
+			});
+		}
+
+		if (copyButton) {
+			copyButton.addEventListener("click", () => {
+				navigator.clipboard
+					.writeText("chavdadhruv0505@gmail.com")
+					.then(() => {
+						const notification = document.createElement("div");
+						notification.textContent = "Email copied to clipboard! 📋";
+						notification.className = "bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded dark:bg-green-900 dark:text-green-300";
+						notification.style.position = "fixed";
+						notification.style.bottom = "20px";
+						notification.style.right = "20px";
+						notification.style.opacity = "0";
+						notification.style.transition = "opacity 0.2s";
+						document.body.appendChild(notification);
+		
+						// Trigger the appear transition
+						setTimeout(() => {
+							notification.style.opacity = "1";
+						}, 10);
+		
+						// Trigger the disappear transition and remove the element
+						setTimeout(() => {
+							notification.style.opacity = "0";
+							setTimeout(() => {
+								document.body.removeChild(notification);
+							}, 500); // Match this timeout with the transition duration
+						}, 1000);
+					})
+					.catch((err) => {
+						console.error("Error copying the email: ", err);
+					});
+			});
+		}
+	});
+</script>
