@@ -1,26 +1,31 @@
-<header class="bg-black/80 fixed w-full z-20 top-0 border-b border-gray-600">
-    <nav class="container mx-auto flex justify-center items-center p-4">
-        <div class="flex items-center space-x-4 md:space-x-8">
-            <a
-                href="#top"
-                class="text-white text-s md:text-lg font-semibold hover:text-gray-300"
-                >Inicio</a
-            >
-            <a
-                href="#experience"
-                class="text-white text-s md:text-lg font-semibold hover:text-gray-300"
-                >Experiencia</a
-            >
-            <a
-                href="#skills"
-                class="text-white text-s md:text-lg font-semibold hover:text-gray-300"
-                >Habilidades</a
-            >
-            <a
-                href="#projects"
-                class="text-white text-s md:text-lg font-semibold hover:text-gray-300"
-                >Proyectos</a
-            >
+---
+import Gmail from "../icons/Gmail.astro";
+import SocialPill from "./SocialPill.astro";
+import LinkedIn from "../icons/LinkedIn.astro";
+import GitHub from "../icons/GitHub.astro";
+import Instagram from "../icons/Instagram.astro";
+
+---
+<header class="w-full z-20 top-0 border-b border-gray-600">
+    <nav class="container mx-auto lg:w-[740px] flex flex-col lg:flex-row items-center justify-between p-5">
+        <div class="id=mailHeader flex space-x-4 md:space-x-3 mb-4 lg:mb-0">
+            <a class="rounded-full text-white flex justify-center items-center gap-x-2 hover:scale-110 hover transition" href="mailto:chavdadhruv0505@gmail.com">
+                <Gmail class="size-4 lg:size-6" />
+                chavdadhruv0505@gmail.com
+            </a>
+        </div>
+        <div class="flex items-center space-x-4 md:space-x-4">
+            <a class="rounded-full text-white flex justify-center items-center gap-x-2 hover:scale-110 hover transition" href="mailto:chavdadhruv0505@gmail.com">
+                <GitHub class="size-4 lg:size-6" />
+            </a>
+            <p>/</p>
+            <a class="rounded-full text-white flex justify-center items-center gap-x-2 hover:scale-110 hover transition" href="https://www.linkedin.com/in/dhruvchavda2712/">
+                <LinkedIn class="size-4 lg:size-6" /> 
+            </a>
+            <p>/</p>
+            <a class="rounded-full text-white flex justify-center items-center gap-x-2 hover:scale-110 hover transition" href="mailto:chavdadhruv0505@gmail.com">
+                <Instagram class="size-4 lg:size-6" /> 
+            </a>
         </div>
     </nav>
 </header>

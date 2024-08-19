@@ -1,14 +1,15 @@
 ---
 import { TAGS } from "../constants/Tags.js";
+import { Icon } from 'astro-icon/components'
 import Tag from "./Tag.astro";
+
 const LANGUAGE_SKILLS = [
-    TAGS.DART,
-    TAGS.JAVA,
-    TAGS.KOTLIN,
+    TAGS.PYTHON,
+    TAGS.BASH,
+    TAGS.GO,
     TAGS.JAVASCRIPT,
-    TAGS.TYPESCRIPT,
-    TAGS.CSHARP,
-    TAGS.SWIFT,
+    TAGS.CPP
+    
 ];
 const FRAMEWRK_SKILLS = [
     TAGS.FLUTTER,
@@ -20,6 +21,29 @@ const FRAMEWRK_SKILLS = [
     TAGS.SPRING,
     TAGS.EXPRESS,
     TAGS.TAILWIND,
+];
+const CLOUD_SKILLS = [
+    TAGS.AWS,
+    TAGS.KUBERNETES,
+    TAGS.DOCKER,
+    TAGS.ISTIO,
+];
+const AUTOMATION_SKILLS = [
+    TAGS.CFN,
+    TAGS.HELM,
+    TAGS.TERRAFORM,
+    TAGS.SLACK,
+];
+const CICD_SKILLS = [
+    TAGS.GITLAB,
+    TAGS.JENKINS,
+];
+const LM_SKILLS = [
+    TAGS.PROMETHEUS,
+    TAGS.GRAFANA,
+    TAGS.PAGERDUTY,
+    TAGS.DATADOG,
+    TAGS.SUMOLOGIC
 ];
 const SOCIALSF_SKILLS = [
     TAGS.FLEXIBILITY,
@@ -42,11 +66,12 @@ const SOFTWARE_SKILLS = [
     TAGS.NODE,
     TAGS.GIT,
     TAGS.GITHUB,
+    TAGS.KUBERNETES
 ];
 ---
 
 <div class="text-white">
-    <h3 class="text-xl font-semibold my-2 pt-6">Lenguajes</h3>
+    <h3 class="text-xl font-semibold my-2 pt-6">Languages</h3>
     <ul class="flex gap-x-4 flex-row flex-wrap">
         {
             LANGUAGE_SKILLS.map((skill) => (
@@ -56,7 +81,47 @@ const SOFTWARE_SKILLS = [
             ))
         }
     </ul>
-    <h3 class="text-xl font-semibold my-2 pt-12">Frameworks</h3>
+    <h3 class="text-xl font-semibold my-2 pt-6">Cloud Tech</h3>
+    <ul class="flex gap-x-4 flex-row flex-wrap">
+        {
+            CLOUD_SKILLS.map((skill) => (
+                <Tag name={skill.name}>
+                    <skill.icon class="size-5 text-white" />
+                </Tag>
+            ))
+        }
+    </ul>
+    <h3 class="text-xl font-semibold my-2 pt-6">Automations</h3>
+    <ul class="flex gap-x-4 flex-row flex-wrap">
+        {
+            AUTOMATION_SKILLS.map((skill) => (
+                <Tag name={skill.name}>
+                    <skill.icon class="size-5 text-white" />
+                </Tag>
+            ))
+        }
+    </ul>
+    <h3 class="text-xl font-semibold my-2 pt-6">CI | CD</h3>
+    <ul class="flex gap-x-4 flex-row flex-wrap">
+        {
+            CICD_SKILLS.map((skill) => (
+                <Tag name={skill.name}>
+                    <skill.icon class="size-5 text-white" />
+                </Tag>
+            ))
+        }
+    </ul>
+    <h3 class="text-xl font-semibold my-2 pt-6">Logging and Monitoring</h3>
+    <ul class="flex gap-x-4 flex-row flex-wrap">
+        {
+            LM_SKILLS.map((skill) => (
+                <Tag name={skill.name}>
+                    <skill.icon class="size-5 text-white" />
+                </Tag>
+            ))
+        }
+    </ul>
+    <!-- <h3 class="text-xl font-semibold my-2 pt-12">Frameworks</h3>
     <ul class="flex gap-x-4 flex-row flex-wrap">
         {
             FRAMEWRK_SKILLS.map((skill) => (
@@ -65,8 +130,8 @@ const SOFTWARE_SKILLS = [
                 </Tag>
             ))
         }
-    </ul>
-    <h3 class="text-xl font-semibold my-2 pt-12">Soft Skills</h3>
+    </ul> -->
+    <h3 class="text-xl font-semibold my-2 pt-6">Soft Skills</h3>
     <ul class="flex gap-x-4 flex-row flex-wrap">
         {
             SOCIALSF_SKILLS.map((skill) => (
@@ -76,7 +141,7 @@ const SOFTWARE_SKILLS = [
             ))
         }
     </ul>
-    <h3 class="text-xl font-semibold my-2 pt-12">Otros</h3>
+    <!-- <h3 class="text-xl font-semibold my-2 pt-12">Otros</h3>
     <ul class="flex gap-x-4 flex-row flex-wrap">
         {
             SOFTWARE_SKILLS.map((skill) => (
@@ -85,5 +150,5 @@ const SOFTWARE_SKILLS = [
                 </Tag>
             ))
         }
-    </ul>
+    </ul> -->
 </div>

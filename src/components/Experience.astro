@@ -3,19 +3,63 @@ import ExperienceItem from "./ExperienceItem.astro";
 
 const EXPERIENCE = [
     {
-        date: "Actualmente...",
-        title: "Programador Senior en Sistemas Informáticos del Mediterráneo",
-        description:
-            `Empecé manteniendo código legacy de aplicaciones en Java 
-            (para Android con XML Views y Spring de backend) y me encuentro
-             actualmente terminando de rehacerlas en tecnologías mas modernas
-             y presentarlas a los clientes como comercial.`,
-        link: "https://www.sime.es/",
+        date: "Feb 2021 - Present",
+        title: "Senior DevOps Engineer",
+        company: "Mindtickle",
+        description: [
+            { type: 'bold', content: '• Isolated Sandbox Testing:\n' },
+            { type: 'text', content: '    - End-to-end implemented a new Testing Concept based on Shift Left Testing principles, achieving ' },
+            { type: 'highlight', content: '40% reduction' },
+            { type: 'text', content: ' in error rates for Kubernetes native applications using Sandbox Deployments. Used Kubernetes Operators and Istio Reliability Features to develop this solution; plans are in place to ' },
+            { type: 'highlight', content: 'open-source' },
+            { type: 'text', content: ' this solution.\n\n' },
+            { type: 'bold', content: '• DevOps Help-Desk:\n' },
+            { type: 'text', content: '    - Developed a portal to effectively manage and track dev on-call requests on Category Type Item pillars. Serving ' },
+            { type: 'highlight', content: '400+ requests per month' },
+            { type: 'text', content: ' using JIRA Service Management and Slack integrations.' }
+        ],
+        link: "https://www.mindtickle.com/",
     },
     {
-        date: "Junio 2021",
-        title: "Fin FP Desarrollo Aplicaciones Multiplataforma",
-        description: "En IES PereMaria Orts y Bosh, con prácticas de empresa.",
+        date: "July 2021 - Jan 2022",
+        title: "DevOps Engineer",
+        company: "Mindtickle",
+        description: [
+            { type: 'text', content: '• Implemented Istio service mesh and its reliability features on cluster(s) with ' },
+            { type: 'highlight', content: 'over 500 microservices.\n' },
+            { type: 'bold', content: '• Chaos Testing Enhancements:\n' },
+            { type: 'text', content: '    - Engineered an in-house Chaos Testing mechanism leveraging K8s Operators and Istio Fault Injection capabilities to dynamically inject faults on live cluster(s) across ' },
+            { type: 'highlight', content: '50+ microservices.\n' },
+            { type: 'text', content: '    - Deployed AWS Fault Injection Stimulator, to conduct comprehensive infra-level fault injections for testing resiliency on cluster(s) with ' },
+            { type: 'highlight', content: 'over 150 nodes.\n' },
+            { type: 'bold', content: '• Cost-Saving Initiatives:\n' },
+            { type: 'text', content: '    - Created scripts to optimize EC2 machines and deleted redundant EBS volumes, incurring annual savings of ' },
+            { type: 'highlight', content: 'over $50,000.\n' },
+            { type: 'text', content: '    - Also deprecated ' },
+            { type: 'highlight', content: '6+ dev tracks' },
+            { type: 'text', content: ' and their low-hanging infra resources and unify them into a single dev track, saving and reusing more resources.' }
+        ],
+        link: "",
+    },
+    {
+        date: "Jan 2021 - Jul 2021",
+        title: "Software Development Engineer Intern",
+        company: "Mindtickle",
+        description: [
+            { type: 'text', content: '• Developed and executed scripts for migrating ' },
+            { type: 'highlight', content: '1000+ repositories' },
+            { type: 'text', content: ' from GitHub to GitLab across ' },
+            { type: 'highlight', content: '5 different languages and modules' },
+            { type: 'text', content: ', including detailed process and validation scripts, saving around ' },
+            { type: 'highlight', content: '$40,000 annually.\n' },
+            { type: 'bold', content: '• Slack Workflows and Automations\n' },
+            { type: 'text', content: '    - Created a Slack Workflow to automate the pre-steps for Production Escalations to ensure better uniformity. This process automatically integrates with JIRA for improved data collection, creates a Slack channel for the incident, leverages PagerDuty to notify stakeholders (and add them to the channel), and utilizes Google Meet for unified connectivity.\n' },
+            { type: 'text', content: '    - Built a custom Slackbot to automate access management and streamline common developer tasks; cut manual workload by ' },
+            { type: 'highlight', content: '30%' },
+            { type: 'text', content: ' and saved the team ' },
+            { type: 'highlight', content: '50+ hours monthly.' }
+        ],
+        link: "",
     },
 ];
 ---
@@ -23,7 +67,7 @@ const EXPERIENCE = [
 <ol class="relative border-s border-gray-200 ml-3">
     {
         EXPERIENCE.map((experience) => (
-            <li class="mb-10 ms-4">
+            <li class="lg:text-xl mb-10 ms-4">
                 <ExperienceItem {...experience} />
             </li>
         ))

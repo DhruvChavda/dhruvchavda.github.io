@@ -12,20 +12,25 @@ import Code from "../icons/Code.astro";
 import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
 import SkillsIcon from "../icons/SkillsIcon.astro";
+import Medium from "../icons/Medium.astro";
 import ProjectsIcon from "../icons/ProjectsIcon.astro";
 import Copy from "../icons/Copy.astro";
+import Credly from "../icons/Credly.astro";
+import Team from "../icons/Team.astro";
+import Socials from "../components/Socials.astro";
+
 ---
 
 <Layout
-	title="Pablo L Portfolio. Desarrollador y Programador Multiplataforma."
-	description="Contrata a Pablo para desarrollar aplicaciones y liderar proyectos."
+	title="Dhruv Chavda | Portfolio"
+	description="Get to know us better."
 >
-	<main class="px-8">
-		<SectionContainer id="top" class="py-44 pb-44">
+	<main class="px-2">
+		<SectionContainer id="top" class="py-4 lg:py-32 pb-4 lg:pb-44">
 			<img
 				class="rounded-full size-40 mb-8"
-				src="/pictures/pablopic.webp"
-				alt="pablo l navarro photo"
+				src="/public/pictures/potrait.jpg"
+				alt="Dhruv Chavda photo"
 			/>
 			<h1
 				class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
@@ -35,28 +40,36 @@ import Copy from "../icons/Copy.astro";
 					href="https://www.linkedin.com/in/dhruvchavda2712/"
 					target="_blank"
 					rel="noopener"
-					class="flex justify-center items-center"
+					class="flex justify-center items-center md:flex hidden"
 				>
 					<Badge>Nice to meet you! 😁</Badge>
 				</a>
 			</h1>
 			<h2 class="text-xl lg:text-2xl text-wrap max-w-[700px]">
-				<span class="text-white opacity-80">Desarrollador </span>
-				<span class="text-red-100/80">Multiplataforma</span>
+				<span class="text-white/80 font-semibold">DevOps </span>
+				<span class="text-yellow-200 font-semibold">Engineer</span>
 			</span
 				>
 			</h2>
-			<h2 class="lg:text-xl text-white max-w-[700px] text-pretty">
-				<span class="opacity-80">Sigo disfrutando de aprender todo tipo de tecnologías Back y Front,
-					 durante mis 	<span class="text-yellow-100/75">más de 3 años de experiencia laboral</span> 
-					 he trabajado en el desarrollo de aplicaciones móviles, escritorio y web; 
-					 desde la <span class="text-red-100/80">formación</span> de los nuevos programadores 
-					 y el <span class="text-red-100/80">trabajo en equipo</span> hasta el 
-					 trato  <span class="text-red-100/80">comercial</span> con el cliente, siempre enfocado 
-					 en crear soluciones de alta calidad y gran experiencia de usuario. \n helo
-					 sd
-			</span
-				>
+			<h2 class="lg:text-xl text-white max-w-[700px] text-pretty mt-3">
+				<span>
+					<span class="opacity-80">I’m a seasoned software engineer specializing in DevOps with</span>
+					<span class="text-green-200">over 2 years of hands-on experience</span>
+					<span class="opacity-80">in Kubernetes, Docker, and AWS cloud services. I specialize in</span>
+					<span class="text-yellow-200">Istio, K8s Operators, optimizing workflows,</span>
+					<span class="opacity-80">and implementing</span>
+					<span class="text-yellow-200">cost-saving strategies</span>
+			</span>
+
+			<!-- <span class="opacity-80">Sigo disfrutando de aprender todo tipo de tecnologías Back y Front,
+				durante mis 	<span class="text-yellow-100/75">más de 3 años de experiencia laboral</span> 
+				he trabajado en el desarrollo de aplicaciones móviles, escritorio y web; 
+				desde la <span class="text-red-100/80">formación</span> de los nuevos programadores 
+				y el <span class="text-red-100/80">trabajo en equipo</span> hasta el 
+				trato  <span class="text-red-100/80">comercial</span> con el cliente, siempre enfocado 
+				en crear soluciones de alta calidad y gran experiencia de usuario. \n helo
+				sd
+	 		</span> -->
 			</h2>
 
 			<nav class="flex gap-4 mt-8 flex-wrap">
@@ -70,6 +83,17 @@ import Copy from "../icons/Copy.astro";
 					GitHub
 				</SocialPill>
 
+				<SocialPill href="https://medium.com/@chavdadhruv0505">
+					<Medium class="size-4 lg:size-6" />
+					Medium
+				</SocialPill>
+				
+				<SocialPill href="https://www.credly.com/users/dhruvchavda">
+					<Credly class="size-4 lg:size-6" />
+					Credly	
+				</SocialPill>
+			</nav>
+			<nav class="flex gap-4 mt-8 flex-wrap">
 				<div id="mailButton">
 					<SocialPill href="#">
 						<Mail class="size-4 lg:size-6" />
@@ -86,30 +110,34 @@ import Copy from "../icons/Copy.astro";
 				</div>
 			</nav>
 		</SectionContainer>
-
-		<SectionContainer id="experience">
-			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
-				<Briefcase class="size-7" />
-				Experiencia
-			</h2>
-			<Experience />
-		</SectionContainer>
-
 		<SectionContainer id="skills">
 			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
-				<SkillsIcon class="size-7" />
-				Habilidades
+				<Code class="size-10" />
+				Skills 🧑🏻‍💻
 			</h2>
 			<Skills />
 		</SectionContainer>
-
-		<SectionContainer id="projects">
+		<SectionContainer id="experience">
+			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+				<Briefcase class="size-10" />
+				Experience 🚀
+			</h2>
+			<Experience />
+		</SectionContainer>
+		<SectionContainer id="Socials">
+			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+				<Team class="size-10" />
+				Stay in Touch 🤝
+			</h2>
+			<Socials />
+		</SectionContainer>
+		<!-- <SectionContainer id="projects">
 			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
 				<Code class="size-7" />
-				Proyectos
+				Projects
 			</h2>
 			<Projects />
-		</SectionContainer>
+		</SectionContainer> -->
 	</main>
 </Layout>
 
@@ -129,14 +157,33 @@ import Copy from "../icons/Copy.astro";
 		if (copyButton) {
 			copyButton.addEventListener("click", () => {
 				navigator.clipboard
-					.writeText("pav.dev3@gmail.com")
+					.writeText("chavdadhruv0505@gmail.com")
 					.then(() => {
-						alert(
-							"Email copiado al portapapeles\n pav.dev3@gmail.com",
-						);
+						const notification = document.createElement("div");
+						notification.textContent = "Email copied to clipboard! 📋";
+						notification.className = "bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded dark:bg-green-900 dark:text-green-300";
+						notification.style.position = "fixed";
+						notification.style.bottom = "20px";
+						notification.style.right = "20px";
+						notification.style.opacity = "0";
+						notification.style.transition = "opacity 0.2s";
+						document.body.appendChild(notification);
+		
+						// Trigger the appear transition
+						setTimeout(() => {
+							notification.style.opacity = "1";
+						}, 10);
+		
+						// Trigger the disappear transition and remove the element
+						setTimeout(() => {
+							notification.style.opacity = "0";
+							setTimeout(() => {
+								document.body.removeChild(notification);
+							}, 500); // Match this timeout with the transition duration
+						}, 1000);
 					})
 					.catch((err) => {
-						console.error("Error al copiar email: ", err);
+						console.error("Error copying the email: ", err);
 					});
 			});
 		}
