@@ -49,7 +49,6 @@ import Helm from "../icons/Helm.astro";
 import Terraform from "../icons/Terraform.astro";
 import Slack from "../icons/Slack.astro";
 import Pagerduty from "../icons/pagerduty.astro";
-import { Icon } from "astro-icon/components";
 
 export const TAGS = {
   TERRAFORM: { name: "Terraform", icon: Terraform },
