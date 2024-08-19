@@ -1,7 +1,5 @@
 # Personal Portfolio
 
-![screenshot](https://github.com/plNav/portfolio/assets/83410074/6ddc77ed-ba4e-468a-a864-196efb196838)
-
 Welcome to my personal portfolio! This project is built using Astro.js, a modern static site generator that brings together the best of the web frameworks to create fast and efficient websites.
 
 ## Features
@@ -88,11 +86,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 - Commit your Changes `git commit -m 'Add some AmazingFeature`
 - Push to the Branch `git push origin feature/AmazingFeature`
 - Open a Pull Request
-
-## Contact
-Pablo L Navarro - pav.dev3@gmail.com
-
-Project Link: https://github.com/plNav/portfolio
-
-Live Site: https://pablolnavarro.netlify.app/
 

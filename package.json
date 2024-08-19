@@ -14,15 +14,12 @@
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/onest": "^5.0.4",
     "@heroicons/react": "^2.1.5",
-    "@iconify-json/logos": "^1.1.44",
-    "@iconify-json/mdi": "^1.1.68",
-    "@iconify-json/simple-icons": "^1.1.113",
     "astro": "^4.8.3",
     "astro-icon": "^1.1.1",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
   },
-  "description": "Pablo L Personal Portfolio",
+  "description": "Dhruv Chavda Portfolio",
   "main": "index.js",
   "keywords": [
     "astro",
@@ -30,6 +27,6 @@
     "developer",
     "multiplatform"
   ],
-  "author": "Pablo L",
+  "author": "Dhruv Chavda",
   "license": "ISC"
 }
