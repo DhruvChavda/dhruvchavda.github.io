@@ -31,7 +31,7 @@ const { date, title, company, description, link } = Astro.props;
 <h3 class="text-xl text-yellow-100/75">
     {company}
 </h3>
-<p class="mb-4 text-lg font-normal text-pretty text-gray-400 mt-3" style="white-space: pre-wrap;">{Array.isArray(description) ? description.map(part => {
+<p class="mb-4 text-lg font-normal text-pretty text-gray-200 mt-3" style="white-space: pre-wrap;">{Array.isArray(description) ? description.map(part => {
         if (part.type === 'bold') {
             return <strong class="text-med font-bold">{part.content}</strong>;
         }
