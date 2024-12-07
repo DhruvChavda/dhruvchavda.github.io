@@ -30,7 +30,7 @@ To get a local copy up and running, follow these simple steps.
 Clone the repository:
 
 ```bash
-git clone https://github.com/plNav/portfolio.git
+git clone https://github.com/DhruvChavda/dhruvchavda.github.io.git
 ```
 
 Navigate to the project directory:
