@@ -20,107 +20,110 @@ import Team from "../icons/Team.astro";
 import Socials from "../components/Socials.astro";
 import Learn from "../icons/Learn.astro";
 import About from "../components/About.astro";
+
 ---
 
-<Layout title="Dhruv Chavda | Portfolio" description="Dhruv Chavda | Portfolio">
-  <main class="px-2">
-    <SectionContainer id="top" class="py-36 pb-36">
-      <img
-        class="rounded-full size-40 mb-8"
-        src="/pictures/potrait.webp"
-        alt="Dhruv Chavda photo"
-      />
-      <h1
-        class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
-      >
-        👋 Hello! I'm Dhruv
-        <a
-          href="https://www.linkedin.com/in/dhruvchavda2712/"
-          target="_blank"
-          rel="noopener"
-          class="flex justify-center items-center md:flex hidden"
-        >
-          ̰
-          <Badge>Nice to meet you! 😁</Badge>
-        </a>
-      </h1>
-      <h2 class="text-xl lg:text-2xl text-wrap max-w-[700px]">
-        <span class="text-white/80 font-semibold">DevOps </span>
-        <span class="text-yellow-200 font-semibold">Engineer</span>
-      </h2>
-    </SectionContainer>
-    <h2 class="lg:text-xl text-white max-w-[700px] text-pretty mt-3">
-      <span>
-        <span class="opacity-80">I’m a seasoned software engineer specializing in DevOps with</span>
-        <span class="text-green-200">over 2 years of hands-on experience</span>
-        <span class="opacity-80"
-          >in Kubernetes, Docker, and AWS cloud services. I specialize in</span
-        >
-        <span class="text-yellow-200">Istio, K8s Operators, optimizing workflows,</span>
-        <span class="opacity-80">and implementing</span>
-        <span class="text-yellow-200">cost-saving strategies</span>
-      </span>
-    </h2>
+<Layout
+	title="Dhruv Chavda | Portfolio"
+	description="Dhruv Chavda | Portfolio"
+>
+	<main class="px-2">
+		<SectionContainer id="top" class="py-36 pb-36">
+			<img
+				class="rounded-full size-40 mb-8"
+				src="/pictures/potrait.webp"
+				alt="Dhruv Chavda photo"
+			/>
+			<h1
+				class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
+			>
+			 👋 Hello! I'm Dhruv
+				<a
+					href="https://www.linkedin.com/in/dhruvchavda2712/"
+					target="_blank"
+					rel="noopener"
+					class="flex justify-center items-center md:flex hidden"
+				>
+					<Badge>Nice to meet you! 😁</Badge>
+				</a>
+			</h1>
+			<h2 class="text-xl lg:text-2xl text-wrap max-w-[700px]">
+				<span class="text-white/80 font-semibold">DevOps </span>
+				<span class="text-yellow-200 font-semibold">Engineer</span>
+			</span
+				>
+			</h2>
+			<h2 class="lg:text-xl text-white max-w-[700px] text-pretty mt-3">
+				<span>
+					<span class="opacity-80">I’m a seasoned software engineer specializing in DevOps with</span>
+					<span class="text-green-200">over 2 years of hands-on experience</span>
+					<span class="opacity-80">in Kubernetes, Docker, and AWS cloud services. I specialize in</span>
+					<span class="text-yellow-200">Istio, K8s Operators, optimizing workflows,</span>
+					<span class="opacity-80">and implementing</span>
+					<span class="text-yellow-200">cost-saving strategies</span>
+			</span>
+			</h2>
 
-    <nav class="flex gap-4 mt-8 flex-wrap">
-      <SocialPill href=`https://www.linkedin.com/in/dhruvchavda2712/`>
-        <LinkedIn class="size-4 lg:size-6" />
-        LinkedIn
-      </SocialPill>
+			<nav class="flex gap-4 mt-8 flex-wrap">
+				<SocialPill href=`https://www.linkedin.com/in/dhruvchavda2712/`>
+					<LinkedIn class="size-4 lg:size-6" />
+					LinkedIn
+				</SocialPill>
 
-      <SocialPill href="https://github.com/DhruvChavda">
-        <GitHub class="size-4 lg:size-6" />
-        GitHub
-      </SocialPill>
+				<SocialPill href="https://github.com/DhruvChavda">
+					<GitHub class="size-4 lg:size-6" />
+					GitHub
+				</SocialPill>
 
-      <SocialPill href="https://medium.com/@chavdadhruv0505">
-        <Medium class="size-4 lg:size-6" />
-        Medium
-      </SocialPill>
-
-      <SocialPill href="https://www.credly.com/users/dhruvchavda">
-        <Credly class="size-4 lg:size-6" />
-        Credly
-      </SocialPill>
-      <SocialPill href="#">
-        <Mail class="size-4 lg:size-6" />
-        chavdadhruv0505@gmail.com
-      </SocialPill>
-    </nav>
-  </main>
-  <SectionContainer id="About">
-    <h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
-      <Learn class="size-10" />
-      About me 🤷🏻‍♂️
-    </h2>
-    <About />
-  </SectionContainer>
-  <SectionContainer id="skills">
-    <h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
-      <Code class="size-10" />
-      Skills 🧑🏻‍💻
-    </h2>
-    <Skills />
-  </SectionContainer>
-  <SectionContainer id="experience">
-    <h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
-      <Briefcase class="size-10" />
-      Experience 🚀
-    </h2>
-    <Experience />
-  </SectionContainer>
-  <SectionContainer id="Socials">
-    <h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
-      <Team class="size-10" />
-      Stay in Touch 🤝
-    </h2>
-    <Socials />
-  </SectionContainer>
-  <!-- <SectionContainer id="projects">
+				<SocialPill href="https://medium.com/@chavdadhruv0505">
+					<Medium class="size-4 lg:size-6" />
+					Medium
+				</SocialPill>
+				
+				<SocialPill href="https://www.credly.com/users/dhruvchavda">
+					<Credly class="size-4 lg:size-6" />
+					Credly	
+				</SocialPill>
+				<SocialPill href="#">
+					<Mail class="size-4 lg:size-6" />
+					chavdadhruv0505@gmail.com
+				</SocialPill>
+			</nav>
+		</SectionContainer>
+		<SectionContainer id="About">
+			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+				<Learn class="size-10" />
+				About me 🤷🏻‍♂️
+			</h2>
+			<About />
+		</SectionContainer>
+		<SectionContainer id="skills">
+			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+				<Code class="size-10" />
+				Skills 🧑🏻‍💻
+			</h2>
+			<Skills />
+		</SectionContainer>
+		<SectionContainer id="experience">
+			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+				<Briefcase class="size-10" />
+				Experience 🚀
+			</h2>
+			<Experience />
+		</SectionContainer>
+		<SectionContainer id="Socials">
+			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+				<Team class="size-10" />
+				Stay in Touch 🤝
+			</h2>
+			<Socials />
+		</SectionContainer>
+		<!-- <SectionContainer id="projects">
 			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
 				<Code class="size-7" />
 				Projects
 			</h2>
 			<Projects />
 		</SectionContainer> -->
+	</main>
 </Layout>
