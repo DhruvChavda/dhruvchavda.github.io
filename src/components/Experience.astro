@@ -7,20 +7,44 @@ const EXPERIENCE = [
     title: "Senior DevOps Engineer",
     company: "Mindtickle",
     description: [
-      { type: "bold", content: "• Isolated Sandbox Testing:\n" },
+      { type: "bold", content: "• Istio Service Mesh:\n" },
       {
         type: "text",
         content:
-          "    - End-to-end implemented a new Testing Concept based on Shift Left Testing principles, achieving ",
+          "    - Implemented Istio service mesh and its reliability features on cluster(s) with",
       },
-      { type: "highlight", content: "40% reduction" },
+      { type: "highlight", content: " over 500 microservices.\n" },
+      {
+        type: "text",
+        content: "    -",
+      },
+      { type: "highlight", content: " Reduced Inter-AZ" },
+      { type: "text", content: " data transfer costs by" },
+      { type: "highlight", content: " 70%" },
       {
         type: "text",
         content:
-          " in error rates for Kubernetes native applications using Sandbox Deployments. Used Kubernetes Operators and Istio Reliability Features to develop this solution; plans are in place to ",
+          " by optimizing traffic management with Istio’s Locality LoadBalancing Settings, and created",
       },
-      { type: "highlight", content: "open-source" },
-      { type: "text", content: " this solution.\n\n" },
+      { type: "highlight", content: " Grafana dashboards" },
+      {
+        type: "text",
+        content:
+          " for comprehensive control plane and data plane observability.\n",
+      },
+      { type: "text", content: "    - Achieved" },
+      { type: "highlight", content: " Zero Downtime" },
+      { type: "text", content: " during Istio upgrades in" },
+      { type: "highlight", content: " Production Cluster(s)" },
+      { type: "text", content: " by designing a" },
+      { type: "highlight", content: " Canary Deployment Strategy" },
+      {
+        type: "text",
+        content: " for seamless rollbacks and transitioning to efficient",
+      },
+      { type: "highlight", content: " Helm-based deployments" },
+      { type: "text", content: " for better version control.\n\n" },
+
       { type: "bold", content: "• DevOps Help-Desk:\n" },
       {
         type: "text",
@@ -28,7 +52,25 @@ const EXPERIENCE = [
           "    - Developed a portal to effectively manage and track dev on-call requests on Category Type Item pillars. Serving ",
       },
       { type: "highlight", content: "400+ requests per month" },
-      { type: "text", content: " using JIRA Service Management and Slack integrations." },
+      {
+        type: "text",
+        content: " using JIRA Service Management and Slack integrations.\n",
+      },
+      { type: "text", content: "    - Introduced" },
+      { type: "highlight", content: " SLAs" },
+      {
+        type: "text",
+        content:
+          " for better prioritization and timely issue resolution, also generated",
+      },
+      { type: "highlight", content: " insightful reports" },
+      {
+        type: "text",
+        content:
+          " to spot recurring issues and enhance process efficiency and added",
+      },
+      { type: "highlight", content: " JIRA automations" },
+      { type: "text", content: " to ease the ticket addressing process.\n" },
     ],
     link: "https://www.mindtickle.com/",
   },
@@ -38,11 +80,31 @@ const EXPERIENCE = [
     company: "Mindtickle",
     description: [
       {
+        type: "bold",
+        content: "• Isolated Sandbox Testing:\n",
+      },
+      {
+        type: "text",
+        content: "    - End-to-end implemented a new Testing Concept based on",
+      },
+      { type: "highlight", content: " Shift Left Testing" },
+      { type: "text", content: " principles, achieving" },
+      { type: "highlight", content: " 40% reduction" },
+      {
         type: "text",
         content:
-          "• Implemented Istio service mesh and its reliability features on cluster(s) with ",
+          " in error rates for Kubernetes native applications using Sandbox Deployments\n",
       },
-      { type: "highlight", content: "over 500 microservices.\n" },
+      { type: "text", content: "    - Used" },
+      { type: "highlight", content: " Kubernetes Operators" },
+      { type: "text", content: " and" },
+      { type: "highlight", content: " Istio Reliability Features" },
+      {
+        type: "text",
+        content:
+          " to develop this solution; plans are in place to open-source it.\n\n",
+      },
+
       { type: "bold", content: "• Chaos Testing Enhancements:\n" },
       {
         type: "text",
@@ -55,7 +117,8 @@ const EXPERIENCE = [
         content:
           "    - Deployed AWS Fault Injection Stimulator, to conduct comprehensive infra-level fault injections for testing resiliency on cluster(s) with ",
       },
-      { type: "highlight", content: "over 150 nodes.\n" },
+      { type: "highlight", content: "over 150 nodes.\n\n" },
+
       { type: "bold", content: "• Cost-Saving Initiatives:\n" },
       {
         type: "text",
@@ -78,21 +141,48 @@ const EXPERIENCE = [
     title: "Software Development Engineer Intern",
     company: "Mindtickle",
     description: [
-      { type: "text", content: "• Developed and executed scripts for migrating " },
+      {
+        type: "bold",
+        content: "• Repository Migration:\n",
+      },
+      {
+        type: "text",
+        content: "    - Developed and executed scripts for migrating ",
+      },
       { type: "highlight", content: "1000+ repositories" },
       { type: "text", content: " from GitHub to GitLab across " },
       { type: "highlight", content: "5 different languages and modules" },
       {
         type: "text",
-        content: ", including detailed process and validation scripts, saving around ",
+        content:
+          ", including detailed process and validation scripts, saving around ",
       },
-      { type: "highlight", content: "$40,000 annually.\n" },
+      { type: "highlight", content: "$40,000 annually.\n\n" },
+
       { type: "bold", content: "• Slack Workflows and Automations\n" },
       {
         type: "text",
-        content:
-          "    - Created a Slack Workflow to automate the pre-steps for Production Escalations to ensure better uniformity. This process automatically integrates with JIRA for improved data collection, creates a Slack channel for the incident, leverages PagerDuty to notify stakeholders (and add them to the channel), and utilizes Google Meet for unified connectivity.\n",
+        content: "    - Created a Slack Workflow to automate the pre-steps for",
       },
+      { type: "highlight", content: " Production Escalations" },
+      {
+        type: "text",
+        content:
+          " to ensure better uniformity. This process automatically integrates with",
+      },
+      { type: "highlight", content: " JIRA" },
+      {
+        type: "text",
+        content:
+          " for improved data collection, creates a Slack channel for the incident, leverages",
+      },
+      { type: "highlight", content: " PagerDuty" },
+      { type: "text", content: " to notify stakeholders and" },
+
+      { type: "highlight", content: " (add them to the channel" },
+      { type: "text", content: " and utilizes" },
+      { type: "highlight", content: " Google Meet" },
+      { type: "text", content: " for unified connectivity.\n" },
       {
         type: "text",
         content:
@@ -100,7 +190,7 @@ const EXPERIENCE = [
       },
       { type: "highlight", content: "30%" },
       { type: "text", content: " and saved the team " },
-      { type: "highlight", content: "50+ hours monthly." },
+      { type: "highlight", content: "50+ hours monthly.\n\n" },
     ],
     link: "",
   },
