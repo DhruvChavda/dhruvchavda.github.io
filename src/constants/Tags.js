@@ -14,6 +14,7 @@ import Sumologic from "../icons/Sumologic.astro";
 import Helm from "../icons/Helm.astro";
 import Slack from "../icons/Slack.astro";
 import Pagerduty from "../icons/pagerduty.astro";
+import Loki from "../icons/Loki.astro";
 import Flexibility from "../icons/Flexibility.astro";
 import Team from "../icons/Team.astro";
 import Iniciative from "../icons/Iniciative.astro";
@@ -47,6 +48,7 @@ export const TAGS = {
   DATADOG: { name: "Datadog", icon: Datadog },
   SUMOLOGIC: { name: "Sumologic", icon: Sumologic },
   PAGERDUTY: { name: "PagerDuty", icon: Pagerduty },
+  LOKI: { name: "Loki (Log Aggregation)", icon: Loki },
   
   // Programming Languages
   PYTHON: { name: "Python", icon: Python },
