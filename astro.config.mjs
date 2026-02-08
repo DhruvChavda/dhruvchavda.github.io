@@ -3,10 +3,10 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://dhruvchavda.github.io",
+  site: "https://dhruvchavda.in",
   integrations: [tailwind()],
   image: {
-    domains: ["localhost", "dhruvchavda.github.io"],
+    domains: ["localhost", "dhruvchavda.in"],
     cacheDir: "./.astro/image",
   },
   vite: {
