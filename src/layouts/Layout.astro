@@ -46,14 +46,39 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
     
-    <!-- Performance Optimizations -->
+    <!-- Performance Optimizations - Critical Font Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    
+    <!-- Preload critical font with high priority -->
+    <link rel="preload" href="/_astro/onest-lat-ext.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/pictures/potrait.webp" as="image" type="image/webp" fetchpriority="high" />
+    
+    <!-- Resource Hints -->
     <link rel="prefetch" href="/rss.xml" />
     <link rel="prefetch" href="/sitemap.xml" />
+    
+    <!-- Defer non-critical CSS to reduce render-blocking -->
+    <style>
+      /* Critical inline styles for above-the-fold content - fast font fallback */
+      html {
+        font-family: "Onest Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        scroll-behavior: smooth;
+        color-scheme: light dark;
+      }
+      body {
+        background: #050505;
+        margin: 0;
+        padding: 0;
+      }
+      /* Use font-display: swap to prevent font blocking */
+      @font-face {
+        font-family: "Onest Variable";
+        font-display: swap;
+      }
+    </style>
     
     <title>{title}</title>
   </head>
