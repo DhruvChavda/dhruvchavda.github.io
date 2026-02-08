@@ -31,6 +31,7 @@
   "author": "Dhruv Chavda",
   "license": "ISC",
   "devDependencies": {
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "terser": "^5.46.0"
   }
 }
