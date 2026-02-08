@@ -5,4 +5,9 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   site: "https://dhruvchavda.github.io",
   integrations: [tailwind()],
+  vite: {
+    build: {
+      minify: "terser",
+    },
+  },
 });
