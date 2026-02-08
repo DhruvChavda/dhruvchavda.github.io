@@ -25,6 +25,8 @@ import GitHub from "../icons/GitHub.astro";
 import Linux from "../icons/Linux.astro";
 import Docker from "../icons/Docker.astro";
 import Cpp from "../icons/Cpp.astro";
+import DigitalOcean from "../icons/DigitalOcean.astro";
+import Cloudflare from "../icons/Cloudflare.astro";
 
 export const TAGS = {
   // DevOps & Infrastructure
@@ -34,6 +36,8 @@ export const TAGS = {
   ISTIO: { name: "Istio (Service Mesh)", icon: Istio },
   HELM: { name: "Helm", icon: Helm },
   DOCKER: { name: "Docker", icon: Docker },
+  DIGITALOCEAN: { name: "DigitalOcean", icon: DigitalOcean },
+  CLOUDFLARE: { name: "Cloudflare", icon: Cloudflare },
   
   // CI/CD & Monitoring
   GITLAB: { name: "GitLab Pipelines", icon: GitLab },

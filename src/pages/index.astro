@@ -18,6 +18,7 @@ import Learn from "../icons/Learn.astro";
 import About from "../components/About.astro";
 import Highlight from "../components/Highlight.astro";
 import Schema from "../components/Schema.astro";
+import Topmate from "../icons/Topmate.astro";
 
 const title = "Dhruv Chavda | DevOps Engineer & CKA Certified Professional";
 const description = "DevOps/SRE Engineer with 3+ years of experience in Kubernetes, Docker, AWS, and cloud infrastructure. CKA certified specialist in Istio, K8s Operators, and cost optimization.";
@@ -104,39 +105,41 @@ const socialProfiles = [
 				<SocialPill href="https://www.credly.com/users/dhruvchavda">
 					<Credly class="size-4 lg:size-6" />
 					Credly	
-				</SocialPill>
-				<SocialPill href="#">
+				</SocialPill>			<SocialPill href="https://topmate.io/dhruvchavda/">
+				<Topmate class="size-4 lg:size-6" />
+				Topmate
+			</SocialPill>				<SocialPill href="#">
 					<Mail class="size-4 lg:size-6" />
 					chavdadhruv0505@gmail.com
 				</SocialPill>
 			</nav>
 		</SectionContainer>
-		<SectionContainer id="About">
-			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+		<SectionContainer id="about">
+			<a href="#about" class="group text-2xl font-semibold mb-6 flex gap-x-3 items-center hover:opacity-80 transition-opacity cursor-pointer">
 				<Learn class="size-10" />
-				About me 🤷🏻‍♂️
-			</h2>
+				<span class="group-hover:underline">About me 🤷🏻‍♂️</span>
+			</a>
 			<About />
 		</SectionContainer>
 		<SectionContainer id="skills">
-			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+			<a href="#skills" class="group text-2xl font-semibold mb-6 flex gap-x-3 items-center hover:opacity-80 transition-opacity cursor-pointer">
 				<Code class="size-10" />
-				Skills 🧑🏻‍💻
-			</h2>
+				<span class="group-hover:underline">Skills 🧑🏻‍💻</span>
+			</a>
 			<Skills />
 		</SectionContainer>
 		<SectionContainer id="experience">
-			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+			<a href="#experience" class="group text-2xl font-semibold mb-6 flex gap-x-3 items-center hover:opacity-80 transition-opacity cursor-pointer">
 				<Briefcase class="size-10" />
-				Experience 🚀
-			</h2>
+				<span class="group-hover:underline">Experience 🚀</span>
+			</a>
 			<Experience />
 		</SectionContainer>
 		<SectionContainer id="Socials">
-			<h2 class="text-2xl font-semibold mb-6 flex gap-x-3 items-center">
+			<a href="#Socials" class="group text-2xl font-semibold mb-6 flex gap-x-3 items-center hover:opacity-80 transition-opacity cursor-pointer">
 				<Team class="size-10" />
-				Stay in Touch 🤝
-			</h2>
+				<span class="group-hover:underline">Stay in Touch 🤝</span>
+			</a>
 			<Socials />
 		</SectionContainer>
 		<!-- <SectionContainer id="projects">
