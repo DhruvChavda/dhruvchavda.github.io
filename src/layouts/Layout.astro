@@ -48,8 +48,12 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     
     <!-- Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="preload" href="/pictures/potrait.webp" as="image" type="image/webp" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preload" href="/pictures/potrait.webp" as="image" type="image/webp" fetchpriority="high" />
+    <link rel="prefetch" href="/rss.xml" />
+    <link rel="prefetch" href="/sitemap.xml" />
     
     <title>{title}</title>
   </head>
