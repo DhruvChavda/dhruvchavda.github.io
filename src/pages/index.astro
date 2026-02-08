@@ -9,24 +9,44 @@ import Experience from "../components/Experience.astro";
 import SectionContainer from "../components/SectionContainer.astro";
 import Briefcase from "../icons/Briefcase.astro";
 import Code from "../icons/Code.astro";
-import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
-import SkillsIcon from "../icons/SkillsIcon.astro";
 import Medium from "../icons/Medium.astro";
-import ProjectsIcon from "../icons/ProjectsIcon.astro";
-import Copy from "../icons/Copy.astro";
 import Credly from "../icons/Credly.astro";
 import Team from "../icons/Team.astro";
 import Socials from "../components/Socials.astro";
 import Learn from "../icons/Learn.astro";
 import About from "../components/About.astro";
+import Highlight from "../components/Highlight.astro";
+import Schema from "../components/Schema.astro";
+
+const title = "Dhruv Chavda | DevOps Engineer & CKA Certified Professional";
+const description = "DevOps/SRE Engineer with 3+ years of experience in Kubernetes, Docker, AWS, and cloud infrastructure. CKA certified specialist in Istio, K8s Operators, and cost optimization.";
+const keywords = "DevOps, Kubernetes, Docker, AWS, Terraform, CI/CD, SRE, Cloud Engineer, Istio, Infrastructure";
+const socialProfiles = [
+  "https://www.linkedin.com/in/dhruvchavda2712/",
+  "https://github.com/DhruvChavda",
+  "https://medium.com/@chavdadhruv0505",
+  "https://www.credly.com/users/dhruvchavda",
+];
 
 ---
 
 <Layout
-	title="Dhruv Chavda | Portfolio"
-	description="Dhruv Chavda | Portfolio"
+	title={title}
+	description={description}
+	keywords={keywords}
+	ogImage="/pictures/potrait.webp"
 >
+	<Schema
+		name="Dhruv Chavda"
+		title="DevOps Engineer"
+		description={description}
+		image="https://dhruvchavda.github.io/pictures/potrait.webp"
+		url="https://dhruvchavda.github.io"
+		email="chavdadhruv0505@gmail.com"
+		location="Pune"
+		socialProfiles={socialProfiles}
+	/>
 	<main class="px-2">
 		<SectionContainer id="top" class="py-36 pb-36">
 			<img
@@ -47,24 +67,23 @@ import About from "../components/About.astro";
 					<Badge>Nice to meet you! 😁</Badge>
 				</a>
 			</h1>
-			<h2 class="text-xl lg:text-2xl text-wrap max-w-[700px]">
+			<p class="text-xl lg:text-2xl text-wrap max-w-[700px]">
 				<span class="text-white font-semibold">DevOps </span>
-				<span class="text-yellow-200 font-semibold">Engineer</span>
-			</span>
-			</h2>
-			<h2 class="lg:text-xl text-white max-w-[700px] text-pretty mt-3">
+				<Highlight class="font-semibold">Engineer</Highlight>
+			</p>
+			<p class="lg:text-xl text-white max-w-[700px] text-pretty mt-3">
 				<span>
 					<span>I'm a </span>
-					<span class="text-yellow-200">CKA Certified</span> 
+					<Highlight>CKA Certified</Highlight> 
 					<span>DevOps/SRE Engineer with</span>
-					<span class="text-green-300">over 3 years of hands-on experience</span>
+					<Highlight color="green">over 3 years of hands-on experience</Highlight>
 					<span>in Kubernetes, Docker, and AWS cloud services. I specialize in</span>
-					<span class="text-yellow-200">Istio, K8s Operators, optimizing workflows,</span>
+					<Highlight>Istio, K8s Operators, optimizing workflows,</Highlight>
 					<span>and implementing</span>
-					<span class="text-yellow-200">cost-saving strategies</span>
+					<Highlight>cost-saving strategies</Highlight>
 
 			</span>
-			</h2>
+			</p>
 
 			<nav class="flex gap-4 mt-8 flex-wrap">
 				<SocialPill href=`https://www.linkedin.com/in/dhruvchavda2712/`>

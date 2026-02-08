@@ -1,0 +1,33 @@
+---
+interface Props {
+  name: string;
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+  email: string;
+  location: string;
+  socialProfiles?: string[];
+}
+
+const { name, title, description, image, url, email, location, socialProfiles = [] } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org/",
+  "@type": "Person",
+  name,
+  url,
+  image,
+  jobTitle: title,
+  description,
+  email,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: location,
+    addressCountry: "IN",
+  },
+  sameAs: socialProfiles,
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />

@@ -2,23 +2,12 @@
 import { TAGS } from "../constants/Tags.js";
 import Tag from "./Tag.astro";
 
-const LANGUAGE_SKILLS = [TAGS.PYTHON, TAGS.BASH, TAGS.GO, TAGS.JAVASCRIPT, TAGS.CPP];
-const FRAMEWRK_SKILLS = [
-  TAGS.FLUTTER,
-  TAGS.ANGULAR,
-  TAGS.REACT,
-  TAGS.ASTRO,
-  TAGS.COMPOSE,
-  TAGS.SWIFTUI,
-  TAGS.SPRING,
-  TAGS.EXPRESS,
-  TAGS.TAILWIND,
-];
+const LANGUAGE_SKILLS = [TAGS.PYTHON, TAGS.BASH, TAGS.GO, TAGS.CPP];
 const CLOUD_SKILLS = [TAGS.AWS, TAGS.KUBERNETES, TAGS.DOCKER, TAGS.ISTIO];
-const AUTOMATION_SKILLS = [TAGS.CFN, TAGS.HELM, TAGS.TERRAFORM, TAGS.SLACK];
+const AUTOMATION_SKILLS = [TAGS.HELM, TAGS.TERRAFORM];
 const CICD_SKILLS = [TAGS.GITLAB, TAGS.JENKINS];
 const LM_SKILLS = [TAGS.PROMETHEUS, TAGS.GRAFANA, TAGS.PAGERDUTY, TAGS.DATADOG, TAGS.SUMOLOGIC];
-const SOCIALSF_SKILLS = [
+const SOFT_SKILLS = [
   TAGS.FLEXIBILITY,
   TAGS.TEAMWORK,
   TAGS.INITIATIVE,
@@ -26,20 +15,11 @@ const SOCIALSF_SKILLS = [
   TAGS.PROBLEMRES,
   TAGS.LEARN,
 ];
-const SOFTWARE_SKILLS = [
-  TAGS.MYSQL,
-  TAGS.MONGODB,
-  TAGS.DOCKER,
+const TOOLS_SKILLS = [
   TAGS.LINUX,
-  TAGS.POWERSHELL,
-  TAGS.FIREBASE,
-  TAGS.HTML,
-  TAGS.CSS,
-  TAGS.DENO,
-  TAGS.NODE,
   TAGS.GIT,
   TAGS.GITHUB,
-  TAGS.KUBERNETES,
+  TAGS.SLACK,
 ];
 ---
 
@@ -94,34 +74,24 @@ const SOFTWARE_SKILLS = [
       ))
     }
   </ul>
-  <!-- <h3 class="text-xl font-semibold my-2 pt-12">Frameworks</h3>
-    <ul class="flex gap-x-4 flex-row flex-wrap">
-        {
-            FRAMEWRK_SKILLS.map((skill) => (
-                <Tag name={skill.name}>
-                    <skill.icon class="size-5" />
-                </Tag>
-            ))
-        }
-    </ul> -->
   <h3 class="text-xl font-semibold my-2 pt-6">Soft Skills</h3>
   <ul class="flex gap-x-4 flex-row flex-wrap">
     {
-      SOCIALSF_SKILLS.map((skill) => (
+      SOFT_SKILLS.map((skill) => (
         <Tag name={skill.name}>
           <skill.icon class="size-5" />
         </Tag>
       ))
     }
   </ul>
-  <!-- <h3 class="text-xl font-semibold my-2 pt-12">Otros</h3>
-    <ul class="flex gap-x-4 flex-row flex-wrap">
-        {
-            SOFTWARE_SKILLS.map((skill) => (
-                <Tag name={skill.name}>
-                    <skill.icon class="size-5" />
-                </Tag>
-            ))
-        }
-    </ul> -->
+  <h3 class="text-xl font-semibold my-2 pt-6">Tools & Systems</h3>
+  <ul class="flex gap-x-4 flex-row flex-wrap">
+    {
+      TOOLS_SKILLS.map((skill) => (
+        <Tag name={skill.name}>
+          <skill.icon class="size-5 text-white" />
+        </Tag>
+      ))
+    }
+  </ul>
 </div>

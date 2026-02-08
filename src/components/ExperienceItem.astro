@@ -1,4 +1,6 @@
 ---
+import Highlight from "./Highlight.astro";
+
 interface DescriptionPart {
   type: string;
   content: string;
@@ -33,7 +35,7 @@ const { date, title, company, description, link } = Astro.props;
             return <strong class="text-med font-bold text-white/100">{part.content}</strong>;
           }
           if (part.type === "highlight") {
-            return <span class="text-green-200/90">{part.content}</span>;
+            return <Highlight color="green">{part.content}</Highlight>;
           }
           return part.content;
         })

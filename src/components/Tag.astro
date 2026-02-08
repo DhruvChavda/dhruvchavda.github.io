@@ -1,13 +1,15 @@
 ---
 interface Props {
   name: string;
+  class?: string;
 }
-const { name } = Astro.props;
+
+const { name, class: className } = Astro.props;
 ---
 
 <li>
   <span
-    class={`flex items-center gap-x-2 rounded-full text-white text-lg bg-yellow-500/10 ${Astro.props} py-1 px-4 mb-2`}
+    class={`flex items-center gap-x-2 rounded-full text-white text-lg bg-yellow-500/10 py-1 px-4 mb-2 ${className || ''}`}
   >
     <slot />{name}
   </span>
