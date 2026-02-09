@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 
 const name = "Dhruv Chavda";
-const description = "DevOps Engineer & CKA Certified Professional";
+const description = "DevOps/SRE & Platform Engineer | CKA • ICA Certified";
 const pubDate = new Date();
 
 const rssContent = `<?xml version="1.0" encoding="UTF-8"?>
@@ -13,10 +13,10 @@ const rssContent = `<?xml version="1.0" encoding="UTF-8"?>
     <language>en-us</language>
     <lastBuildDate>${pubDate.toUTCString()}</lastBuildDate>
     <item>
-      <title>${name} - DevOps Portfolio</title>
+      <title>${name} - DevOps/SRE & Platform Engineer</title>
       <link>https://dhruvchavda.in</link>
       <pubDate>${pubDate.toUTCString()}</pubDate>
-      <description>Portfolio of ${name}, a CKA certified DevOps/SRE Engineer with 3+ years of experience in Kubernetes, Docker, AWS, and cloud infrastructure.</description>
+      <description>Portfolio of ${name}, a CKA & ICA certified DevOps/SRE and Platform Engineer specializing in Kubernetes, Docker, AWS, and platform automation.</description>
     </item>
   </channel>
 </rss>`;
