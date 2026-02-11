@@ -59,6 +59,16 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <link rel="prefetch" href="/rss.xml" />
     <link rel="prefetch" href="/sitemap.xml" />
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6GWYJ1HHM"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-B6GWYJ1HHM');
+    </script>
+    
     <!-- Defer non-critical CSS to reduce render-blocking -->
     <style>
       /* Critical inline styles for above-the-fold content - fast font fallback */
