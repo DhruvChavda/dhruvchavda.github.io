@@ -37,6 +37,9 @@ const { date, title, company, description, link } = Astro.props;
           if (part.type === "highlight") {
             return <Highlight color="green">{part.content}</Highlight>;
           }
+          if (part.type === "link") {
+            return <a href={part.href} target="_blank" rel="noopener noreferrer" class="text-blue-400 underline hover:text-blue-300">{part.content}</a>;
+          }
           return part.content;
         })
       : description
