@@ -1,0 +1,203 @@
+---
+---
+
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<style>
+  #particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    background: #050505;
+    background-image: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120, 119, 198, 0.3), rgba(0, 0, 0, 1));
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d');
+
+  // Respect reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  interface Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    opacity: number;
+  }
+
+  let particles: Particle[] = [];
+  let mouseX = -1000;
+  let mouseY = -1000;
+  let animationId: number;
+  let width = 0;
+  let height = 0;
+
+  const PARTICLE_COLOR = { r: 120, g: 119, b: 198 }; // Purple matching theme
+  const MAX_DISTANCE = 150;
+  const MOUSE_RADIUS = 200;
+
+  function getParticleCount(): number {
+    const area = width * height;
+    // ~1 particle per 20000px² area, capped between 30-80
+    return Math.min(80, Math.max(30, Math.floor(area / 20000)));
+  }
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  function createParticles() {
+    const count = getParticleCount();
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: Math.random() * 1.5 + 0.5,
+        opacity: Math.random() * 0.5 + 0.3,
+      });
+    }
+  }
+
+  function drawParticle(p: Particle) {
+    if (!ctx) return;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${PARTICLE_COLOR.r}, ${PARTICLE_COLOR.g}, ${PARTICLE_COLOR.b}, ${p.opacity})`;
+    ctx.fill();
+  }
+
+  function drawLine(p1: Particle, p2: Particle, distance: number) {
+    if (!ctx) return;
+    const opacity = (1 - distance / MAX_DISTANCE) * 0.3;
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.strokeStyle = `rgba(${PARTICLE_COLOR.r}, ${PARTICLE_COLOR.g}, ${PARTICLE_COLOR.b}, ${opacity})`;
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+  }
+
+  function updateParticle(p: Particle) {
+    // Mouse interaction — gentle push away
+    const dx = p.x - mouseX;
+    const dy = p.y - mouseY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < MOUSE_RADIUS && dist > 0) {
+      const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.02;
+      p.vx += (dx / dist) * force;
+      p.vy += (dy / dist) * force;
+    }
+
+    // Apply velocity with damping
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vx *= 0.99;
+    p.vy *= 0.99;
+
+    // Wrap around edges
+    if (p.x < -10) p.x = width + 10;
+    if (p.x > width + 10) p.x = -10;
+    if (p.y < -10) p.y = height + 10;
+    if (p.y > height + 10) p.y = -10;
+  }
+
+  function animate() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, width, height);
+
+    // Update and draw particles
+    for (const p of particles) {
+      updateParticle(p);
+      drawParticle(p);
+    }
+
+    // Draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < MAX_DISTANCE) {
+          drawLine(particles[i], particles[j], distance);
+        }
+      }
+    }
+
+    animationId = requestAnimationFrame(animate);
+  }
+
+  function init() {
+    resize();
+    createParticles();
+
+    if (prefersReducedMotion) {
+      // Draw static particles once without animation
+      if (ctx) {
+        for (const p of particles) {
+          drawParticle(p);
+        }
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < MAX_DISTANCE) {
+              drawLine(particles[i], particles[j], distance);
+            }
+          }
+        }
+      }
+      return;
+    }
+
+    animate();
+  }
+
+  // Track mouse position (only on non-touch devices for performance)
+  if (!('ontouchstart' in window)) {
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+      mouseX = -1000;
+      mouseY = -1000;
+    });
+  }
+
+  // Handle resize with debounce
+  let resizeTimeout: ReturnType<typeof setTimeout>;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      resize();
+      createParticles();
+    }, 200);
+  }, { passive: true });
+
+  // Pause animation when tab is not visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(animationId);
+    } else if (!prefersReducedMotion) {
+      animate();
+    }
+  });
+
+  init();
+</script>

@@ -301,8 +301,12 @@ const EXPERIENCE = [
 
 <ol class="relative border-s border-gray-200 ml-3">
   {
-    EXPERIENCE.map((experience) => (
-      <li class="lg:text-xl mb-10 ms-4">
+    EXPERIENCE.map((experience, index) => (
+      <li
+        data-scroll-left
+        style={`transition-delay: ${index * 150}ms`}
+        class="lg:text-xl mb-10 ms-4"
+      >
         <ExperienceItem {...experience} />
       </li>
     ))

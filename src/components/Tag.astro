@@ -9,7 +9,7 @@ const { name, class: className } = Astro.props;
 
 <li>
   <span
-    class={`flex items-center gap-x-2 rounded-full text-white text-lg bg-yellow-500/10 py-1 px-4 mb-2 ${className || ''}`}
+    class={`flex items-center gap-x-2 rounded-full text-white text-lg bg-yellow-500/10 py-1 px-4 mb-2 transition-all duration-300 hover:scale-105 hover:bg-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/10 cursor-default ${className || ''}`}
   >
     <slot />{name}
   </span>

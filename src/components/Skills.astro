@@ -21,77 +21,35 @@ const TOOLS_SKILLS = [
   TAGS.GITHUB,
   TAGS.SLACK,
 ];
+
+const SKILL_GROUPS = [
+  { title: "Languages", skills: LANGUAGE_SKILLS },
+  { title: "Cloud Tech", skills: CLOUD_SKILLS },
+  { title: "Automations", skills: AUTOMATION_SKILLS },
+  { title: "CI | CD", skills: CICD_SKILLS },
+  { title: "Logging and Monitoring", skills: LM_SKILLS },
+  { title: "Soft Skills", skills: SOFT_SKILLS },
+  { title: "Tools & Systems", skills: TOOLS_SKILLS },
+];
 ---
 
 <div class="text-white">
-  <h3 class="text-xl font-semibold my-2 pt-6">Languages</h3>
-  <ul class="flex gap-x-4 flex-row flex-wrap">
-    {
-      LANGUAGE_SKILLS.map((skill) => (
-        <Tag name={skill.name}>
-          <skill.icon class="size-5 text-white" />
-        </Tag>
-      ))
-    }
-  </ul>
-  <h3 class="text-xl font-semibold my-2 pt-6">Cloud Tech</h3>
-  <ul class="flex gap-x-4 flex-row flex-wrap">
-    {
-      CLOUD_SKILLS.map((skill) => (
-        <Tag name={skill.name}>
-          <skill.icon class="size-5 text-white" />
-        </Tag>
-      ))
-    }
-  </ul>
-  <h3 class="text-xl font-semibold my-2 pt-6">Automations</h3>
-  <ul class="flex gap-x-4 flex-row flex-wrap">
-    {
-      AUTOMATION_SKILLS.map((skill) => (
-        <Tag name={skill.name}>
-          <skill.icon class="size-5 text-white" />
-        </Tag>
-      ))
-    }
-  </ul>
-  <h3 class="text-xl font-semibold my-2 pt-6">CI | CD</h3>
-  <ul class="flex gap-x-4 flex-row flex-wrap">
-    {
-      CICD_SKILLS.map((skill) => (
-        <Tag name={skill.name}>
-          <skill.icon class="size-5 text-white" />
-        </Tag>
-      ))
-    }
-  </ul>
-  <h3 class="text-xl font-semibold my-2 pt-6">Logging and Monitoring</h3>
-  <ul class="flex gap-x-4 flex-row flex-wrap">
-    {
-      LM_SKILLS.map((skill) => (
-        <Tag name={skill.name}>
-          <skill.icon class="size-5 text-white" />
-        </Tag>
-      ))
-    }
-  </ul>
-  <h3 class="text-xl font-semibold my-2 pt-6">Soft Skills</h3>
-  <ul class="flex gap-x-4 flex-row flex-wrap">
-    {
-      SOFT_SKILLS.map((skill) => (
-        <Tag name={skill.name}>
-          <skill.icon class="size-5" />
-        </Tag>
-      ))
-    }
-  </ul>
-  <h3 class="text-xl font-semibold my-2 pt-6">Tools & Systems</h3>
-  <ul class="flex gap-x-4 flex-row flex-wrap">
-    {
-      TOOLS_SKILLS.map((skill) => (
-        <Tag name={skill.name}>
-          <skill.icon class="size-5 text-white" />
-        </Tag>
-      ))
-    }
-  </ul>
+  {
+    SKILL_GROUPS.map((group) => (
+      <>
+        <h3 class="text-xl font-semibold my-2 pt-6">{group.title}</h3>
+        <ul class="flex gap-x-4 flex-row flex-wrap">
+          {group.skills.map((skill) => (
+            <Tag name={skill.name}>
+              {skill.iconUrl ? (
+                <img src={skill.iconUrl} alt={skill.name} width="20" height="20" class="size-5" loading="lazy" />
+              ) : skill.icon ? (
+                <skill.icon class="size-5" />
+              ) : null}
+            </Tag>
+          ))}
+        </ul>
+      </>
+    ))
+  }
 </div>

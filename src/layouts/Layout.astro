@@ -2,6 +2,7 @@
 import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ParticleBackground from "../components/ParticleBackground.astro";
 
 interface Props {
   title: string;
@@ -92,10 +93,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
   </head>
   <body>
-    <div
-      class="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(0,0,0,1))]"
-    >
-    </div>
+    <ParticleBackground />
     <Header />
     <slot />
     <Footer />
@@ -116,9 +114,60 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     height: 100vh;
   }
 
+  /* Scroll reveal animations */
+  [data-scroll] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+  [data-scroll].visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  [data-scroll-left] {
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+  [data-scroll-left].visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Typing cursor */
+  #typed-text::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    color: rgba(120, 119, 198, 0.8);
+    font-weight: 300;
+    margin-left: 2px;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Timeline dot pulse */
+  @keyframes dot-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(120, 119, 198, 0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(120, 119, 198, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(120, 119, 198, 0); }
+  }
+  .dot-pulse {
+    animation: dot-pulse 1.5s ease-out;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+    [data-scroll], [data-scroll-left] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    #typed-text::after {
+      animation: none;
     }
   }
 </style>

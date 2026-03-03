@@ -71,7 +71,11 @@ const PROJECTS = [
       <p class="text-lg mb-4 text-pretty">{description}</p>
       <ul class="flex gap-x-2 flex-wrap">
         {tags.map((tag) => (
-          <Tag name={tag.name}>{<tag.icon class="size-5" />}</Tag>
+          <Tag name={tag.name}>
+            {tag.iconUrl && (
+              <img src={tag.iconUrl} alt={tag.name} width="20" height="20" class="size-5" loading="lazy" />
+            )}
+          </Tag>
         ))}
       </ul>
       {link && (
