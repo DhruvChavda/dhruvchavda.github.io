@@ -52,34 +52,12 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
     
-    <!-- Performance Optimizations - Critical Font Loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    
     <!-- Preload critical image with high priority (only on home page) -->
     {Astro.url.pathname === "/" && <link rel="preload" href="/pictures/potrait.webp" as="image" type="image/webp" fetchpriority="high" />}
-    
-    <!-- Resource Hints -->
-    <link rel="prefetch" href="/rss.xml" />
-    
-    <!-- GoatCounter (view counts) — Change YOUR_CODE to your goatcounter.com site code -->
-    <script
-      data-goatcounter="https://dhruvchavda.goatcounter.com/count"
-      async
-      src="//gc.zgo.at/count.js"
-    ></script>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6GWYJ1HHM"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-B6GWYJ1HHM');
-    </script>
+    <!-- DNS prefetch for analytics (loaded after content) -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="//gc.zgo.at" />
     
     <!-- Defer non-critical CSS to reduce render-blocking -->
     <style>
@@ -140,12 +118,38 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
               const data = await res.json();
               const countEl = el.querySelector(".count-value");
               if (countEl) countEl.textContent = `${data.count} views`;
+            } else if (res.status === 404) {
+              // No views recorded yet
+              const countEl = el.querySelector(".count-value");
+              if (countEl) countEl.textContent = "0 views";
             }
           } catch {
             // Silently fail — count stays as "—"
           }
         });
       }
+    </script>
+
+    <!-- Analytics loaded after content (non-blocking) -->
+    <script is:inline>
+      window.addEventListener('load', function() {
+        // Google Analytics
+        var gs = document.createElement('script');
+        gs.src = 'https://www.googletagmanager.com/gtag/js?id=G-B6GWYJ1HHM';
+        gs.async = true;
+        document.head.appendChild(gs);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-B6GWYJ1HHM');
+
+        // GoatCounter
+        var gc = document.createElement('script');
+        gc.src = '//gc.zgo.at/count.js';
+        gc.async = true;
+        gc.dataset.goatcounter = 'https://dhruvchavda.goatcounter.com/count';
+        document.head.appendChild(gc);
+      });
     </script>
   </body>
 </html>
@@ -161,7 +165,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     display: flex;
     flex-direction: column;
     background: #050505;
-    height: 100vh;
+    min-height: 100vh;
   }
 
   /* Scroll reveal animations */
