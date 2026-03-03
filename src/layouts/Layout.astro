@@ -1,5 +1,4 @@
 ---
-import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ParticleBackground from "../components/ParticleBackground.astro";
@@ -52,16 +51,35 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
     
+    <!-- Preload font to break critical chain: HTML→CSS→Font becomes HTML→Font+CSS in parallel -->
+    <link rel="preload" href="/fonts/onest-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+
     <!-- Preload critical image with high priority (only on home page) -->
     {Astro.url.pathname === "/" && <link rel="preload" href="/pictures/potrait.webp" as="image" type="image/webp" fetchpriority="high" />}
 
     <!-- DNS prefetch for analytics (loaded after content) -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="//gc.zgo.at" />
-    
-    <!-- Defer non-critical CSS to reduce render-blocking -->
-    <style>
-      /* Critical inline styles for above-the-fold content - fast font fallback */
+
+    <style is:inline>
+      /* Self-hosted @font-face — inlined to avoid CSS→Font dependency chain */
+      @font-face {
+        font-family: 'Onest Variable';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 100 900;
+        src: url('/fonts/onest-latin-wght-normal.woff2') format('woff2-variations');
+        unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+      }
+      @font-face {
+        font-family: 'Onest Variable';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 100 900;
+        src: url('/fonts/onest-latin-ext-wght-normal.woff2') format('woff2-variations');
+        unicode-range: U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+      }
+      /* Critical inline styles for above-the-fold content */
       html {
         font-family: "Onest Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         scroll-behavior: smooth;
@@ -71,11 +89,6 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
         background: #050505;
         margin: 0;
         padding: 0;
-      }
-      /* Use font-display: swap to prevent font blocking */
-      @font-face {
-        font-family: "Onest Variable";
-        font-display: swap;
       }
     </style>
     

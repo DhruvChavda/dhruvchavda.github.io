@@ -20,13 +20,6 @@ export default defineConfig({
   vite: {
     build: {
       minify: "terser",
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vendor: ["@fontsource-variable/onest"],
-          },
-        },
-      },
     },
     ssr: {
       external: ["svgo"],

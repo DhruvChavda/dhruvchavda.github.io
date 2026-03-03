@@ -53,10 +53,13 @@
   }
 
   function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    // Batch read then write to avoid forced reflow
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    width = w;
+    height = h;
+    canvas.width = w;
+    canvas.height = h;
   }
 
   function createParticles() {
@@ -205,5 +208,6 @@
     }
   });
 
-  init();
+  // Defer init to next frame to avoid forced reflow during page parse
+  requestAnimationFrame(init);
 </script>
