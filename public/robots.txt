@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /private/
 
-Sitemap: https://dhruvchavda.in/sitemap.xml
+Sitemap: https://dhruvchavda.in/sitemap-index.xml
 
 User-agent: Googlebot
 Allow: /

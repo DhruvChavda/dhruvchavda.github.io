@@ -1,0 +1,150 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import SectionContainer from "../../components/SectionContainer.astro";
+import TableOfContents from "../../components/blog/TableOfContents.astro";
+import ReadingTime from "../../components/blog/ReadingTime.astro";
+import BlogTagBadge from "../../components/blog/BlogTagBadge.astro";
+import { getReadingTime } from "../../utils/readingTime";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const readingTime = getReadingTime(post.body || "");
+---
+
+<Layout
+  title={`${post.data.title} | Dhruv Chavda`}
+  description={post.data.description}
+  ogImage={post.data.heroImage}
+  ogType="article"
+  pubDate={post.data.pubDate}
+  updatedDate={post.data.updatedDate}
+>
+  <main class="px-2">
+    <SectionContainer id="blog-post" class="pt-24" noReveal>
+      <!-- Back link -->
+      <a
+        href="/blogs/"
+        class="text-white/50 hover:text-yellow-200 transition-colors text-sm mb-8 inline-flex items-center gap-1"
+      >
+        <svg
+          class="size-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        All posts
+      </a>
+
+      <!-- Post header -->
+      <header class="mb-8">
+        <div class="flex items-center gap-3 mb-4">
+          <a
+            href={`/blogs/category/${post.data.category.toLowerCase()}/`}
+            class="text-xs bg-yellow-500/10 text-yellow-200 px-3 py-1 rounded-full border border-yellow-500/20 hover:bg-yellow-500/20 transition-colors"
+          >
+            {post.data.category}
+          </a>
+          <ReadingTime minutesRead={readingTime} />
+          <span class="text-gray-400 text-sm flex items-center gap-1 view-count" data-path={`/blogs/${post.id}/`}>
+            <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span class="count-value">—</span>
+          </span>
+        </div>
+        <h1
+          class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight"
+        >
+          {post.data.title}
+        </h1>
+        <p class="text-white/60 text-lg mb-4">{post.data.description}</p>
+        <div class="flex items-center gap-4 text-sm text-gray-500">
+          <time datetime={post.data.pubDate.toISOString()}>
+            {
+              post.data.pubDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }
+          </time>
+          {
+            post.data.updatedDate && (
+              <span>
+                Updated:{" "}
+                {post.data.updatedDate.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            )
+          }
+        </div>
+      </header>
+
+      <!-- Hero image -->
+      {
+        post.data.heroImage && (
+          <img
+            src={post.data.heroImage}
+            alt={post.data.heroImageAlt}
+            class="w-full rounded-lg mb-8 max-h-96 object-cover"
+          />
+        )
+      }
+
+      <!-- Table of Contents -->
+      <TableOfContents headings={headings} />
+
+      <!-- Blog content -->
+      <article
+        class="prose prose-invert max-w-none
+        prose-headings:text-white prose-headings:font-semibold
+        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+        prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+        prose-a:text-yellow-200 prose-a:no-underline hover:prose-a:underline
+        prose-code:text-green-300 prose-code:bg-white/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+        prose-pre:bg-[#1a1a2e] prose-pre:border prose-pre:border-white/10 prose-pre:rounded-lg
+        prose-blockquote:border-l-yellow-500 prose-blockquote:text-white/70
+        prose-strong:text-white
+        prose-img:rounded-lg
+        prose-li:text-white/80
+        prose-p:text-white/80
+        prose-ol:text-white/80
+        prose-ul:text-white/80"
+      >
+        <Content />
+      </article>
+
+      <!-- Tags -->
+      {
+        post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-10 pt-8 border-t border-white/10">
+            {post.data.tags.map((tag) => (
+              <BlogTagBadge
+                name={`#${tag}`}
+                href={`/blogs/tag/${tag.toLowerCase()}/`}
+              />
+            ))}
+          </div>
+        )
+      }
+    </SectionContainer>
+  </main>
+</Layout>

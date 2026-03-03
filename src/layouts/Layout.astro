@@ -9,9 +9,12 @@ interface Props {
   description: string;
   ogImage?: string;
   keywords?: string;
+  ogType?: string;
+  pubDate?: Date;
+  updatedDate?: Date;
 }
 
-const { title, description, ogImage = "/og-image.png", keywords } = Astro.props;
+const { title, description, ogImage = "/og-image.png", keywords, ogType = "website", pubDate, updatedDate } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -29,7 +32,9 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonicalUrl} />
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    {pubDate && <meta property="article:published_time" content={pubDate.toISOString()} />}
+    {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -53,13 +58,19 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     
-    <!-- Preload critical image with high priority -->
-    <link rel="preload" href="/pictures/potrait.webp" as="image" type="image/webp" fetchpriority="high" />
+    <!-- Preload critical image with high priority (only on home page) -->
+    {Astro.url.pathname === "/" && <link rel="preload" href="/pictures/potrait.webp" as="image" type="image/webp" fetchpriority="high" />}
     
     <!-- Resource Hints -->
     <link rel="prefetch" href="/rss.xml" />
-    <link rel="prefetch" href="/sitemap.xml" />
     
+    <!-- GoatCounter (view counts) — Change YOUR_CODE to your goatcounter.com site code -->
+    <script
+      data-goatcounter="https://dhruvchavda.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"
+    ></script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6GWYJ1HHM"></script>
     <script is:inline>
@@ -97,6 +108,45 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <Header />
     <slot />
     <Footer />
+    <script>
+      // Scroll Reveal Observer (global — works on all pages)
+      const scrollElements = document.querySelectorAll('[data-scroll], [data-scroll-left]');
+      const scrollObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              scrollObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.02, rootMargin: '0px 0px 50px 0px' }
+      );
+      scrollElements.forEach((el) => scrollObserver.observe(el));
+
+      // Fetch view counts from GoatCounter (skips localhost — CORS blocked in dev)
+      const GOATCOUNTER_SITE = "dhruvchavda";
+      const isLocalhost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+      if (!isLocalhost) {
+        const viewCountEls = document.querySelectorAll(".view-count");
+        viewCountEls.forEach(async (el) => {
+          const path = (el as HTMLElement).dataset.path;
+          if (!path) return;
+          try {
+            const res = await fetch(
+              `https://${GOATCOUNTER_SITE}.goatcounter.com/counter/${encodeURIComponent(path)}.json`
+            );
+            if (res.ok) {
+              const data = await res.json();
+              const countEl = el.querySelector(".count-value");
+              if (countEl) countEl.textContent = `${data.count} views`;
+            }
+          } catch {
+            // Silently fail — count stays as "—"
+          }
+        });
+      }
+    </script>
   </body>
 </html>
 <style is:global>

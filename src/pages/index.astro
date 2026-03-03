@@ -10,7 +10,6 @@ import SectionContainer from "../components/SectionContainer.astro";
 import Briefcase from "../icons/Briefcase.astro";
 import Code from "../icons/Code.astro";
 import Skills from "../components/Skills.astro";
-import Medium from "../icons/Medium.astro";
 import Credly from "../icons/Credly.astro";
 import Team from "../icons/Team.astro";
 import Socials from "../components/Socials.astro";
@@ -26,7 +25,6 @@ const keywords = "DevOps, Kubernetes, Docker, AWS, Terraform, CI/CD, SRE, Cloud 
 const socialProfiles = [
   "https://www.linkedin.com/in/dhruvchavda2712/",
   "https://github.com/DhruvChavda",
-  "https://medium.com/@chavdadhruv0505",
   "https://www.credly.com/users/dhruvchavda",
 ];
 
@@ -96,11 +94,6 @@ const socialProfiles = [
 					GitHub
 				</SocialPill>
 
-				<SocialPill href="https://medium.com/@chavdadhruv0505">
-					<Medium class="size-4 lg:size-6" />
-					Medium
-				</SocialPill>
-				
 				<SocialPill href="https://www.credly.com/users/dhruvchavda">
 					<Credly class="size-4 lg:size-6" />
 					Credly	
@@ -200,21 +193,6 @@ const socialProfiles = [
 	}
 
 	typeEffect();
-
-	// === Scroll Reveal Observer ===
-	const scrollElements = document.querySelectorAll('[data-scroll], [data-scroll-left]');
-	const scrollObserver = new IntersectionObserver(
-		(entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('visible');
-					scrollObserver.unobserve(entry.target);
-				}
-			});
-		},
-		{ threshold: 0.02, rootMargin: '0px 0px 50px 0px' }
-	);
-	scrollElements.forEach((el) => scrollObserver.observe(el));
 
 	// === Parallax Effect (Desktop only) — applies to entire hero section ===
 	const heroSection = document.getElementById('top');

@@ -4,6 +4,8 @@ import LinkedIn from "../icons/LinkedIn.astro";
 import GitHub from "../icons/GitHub.astro";
 import Instagram from "../icons/Instagram.astro";
 import Topmate from "../icons/Topmate.astro";
+
+const isBlogPage = Astro.url.pathname.startsWith("/blogs");
 ---
 
 <header id="site-header" class="w-full z-20 sticky top-0 border-b border-gray-600/50 backdrop-blur-md bg-neutral-950/70 transition-all duration-300">
@@ -21,6 +23,13 @@ import Topmate from "../icons/Topmate.astro";
       </a>
     </div>
     <div class="flex items-center space-x-4 md:space-x-4">
+      <a
+        href={isBlogPage ? "/" : "/blogs/"}
+        class="rounded-full text-white flex justify-center items-center gap-x-2 hover:scale-110 hover:text-yellow-200 transition text-sm lg:text-base font-medium"
+      >
+        {isBlogPage ? "Home" : "Blogs"}
+      </a>
+      <p>/</p>
       <a
         aria-label="Visit my GitHub profile"
         class="rounded-full text-white flex justify-center items-center gap-x-2 hover:scale-110 hover transition"
