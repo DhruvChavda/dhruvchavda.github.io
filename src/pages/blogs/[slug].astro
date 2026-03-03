@@ -119,8 +119,9 @@ const readingTime = getReadingTime(post.body || "");
         prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
         prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
         prose-a:text-yellow-200 prose-a:no-underline hover:prose-a:underline
-        prose-code:text-green-300 prose-code:bg-white/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+        prose-code:before:content-none prose-code:after:content-none
         prose-pre:bg-[#1a1a2e] prose-pre:border prose-pre:border-white/10 prose-pre:rounded-lg
+        [&_:not(pre)>code]:text-green-300 [&_:not(pre)>code]:bg-white/10 [&_:not(pre)>code]:px-1.5 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:rounded [&_:not(pre)>code]:text-sm
         prose-blockquote:border-l-yellow-500 prose-blockquote:text-white/70
         prose-strong:text-white
         prose-img:rounded-lg
@@ -148,3 +149,86 @@ const readingTime = getReadingTime(post.body || "");
     </SectionContainer>
   </main>
 </Layout>
+
+<style is:global>
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .copy-btn:hover {
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .copy-btn.copied {
+    color: #86efac;
+  }
+  .prose pre {
+    position: relative;
+    padding-top: 2.5rem;
+  }
+  .prose pre code {
+    counter-reset: line;
+  }
+  .prose pre code > .line::before {
+    counter-increment: line;
+    content: counter(line);
+    min-width: 3ch;
+    margin-right: 1rem;
+    display: inline-block;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.2);
+    user-select: none;
+  }
+  .prose pre .lang-label {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.25);
+    font-family: system-ui, sans-serif;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll(".prose pre").forEach((pre) => {
+    // Language label (Shiki puts data-language on <pre>)
+    const lang = pre.getAttribute("data-language");
+    if (lang) {
+      const label = document.createElement("span");
+      label.className = "lang-label";
+      label.textContent = lang;
+      pre.appendChild(label);
+    }
+
+    // Copy button
+    const btn = document.createElement("button");
+    btn.className = "copy-btn";
+    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+    btn.addEventListener("click", async () => {
+      const code = pre.querySelector("code");
+      const text = code ? code.textContent || "" : pre.textContent || "";
+      await navigator.clipboard.writeText(text);
+      btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+        btn.classList.remove("copied");
+      }, 2000);
+    });
+    pre.appendChild(btn);
+  });
+</script>
