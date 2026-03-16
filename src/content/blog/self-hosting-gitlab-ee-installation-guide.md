@@ -2,7 +2,7 @@
 title: "Self-Hosting GitLab EE: A Complete Installation Guide for Ubuntu"
 description: "A comprehensive, step-by-step guide to installing GitLab Enterprise Edition on Ubuntu LTS with Certbot SSL, backups, and SSO."
 pubDate: 2025-12-15
-category: "Tutorials"
+category: ["Tutorials", "GitLab"]
 tags: ["gitlab", "self-hosted", "devops", "ubuntu", "ssl", "certbot"]
 draft: false
 ---

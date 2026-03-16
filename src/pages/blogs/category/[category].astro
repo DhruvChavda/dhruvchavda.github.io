@@ -9,13 +9,13 @@ export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => {
     return import.meta.env.PROD ? data.draft !== true : true;
   });
-  const categories = [...new Set(posts.map((p) => p.data.category))];
+  const categories = [...new Set(posts.flatMap((p) => p.data.category))];
   return categories.map((category) => ({
     params: { category: category.toLowerCase() },
     props: {
       category,
       posts: posts
-        .filter((p) => p.data.category === category)
+        .filter((p) => p.data.category.includes(category))
         .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
     },
   }));

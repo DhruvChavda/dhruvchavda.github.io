@@ -12,7 +12,7 @@ const allPosts = (
   })
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const categories = [...new Set(allPosts.map((post) => post.data.category))];
+const categories = [...new Set(allPosts.flatMap((post) => post.data.category))];
 ---
 
 <Layout

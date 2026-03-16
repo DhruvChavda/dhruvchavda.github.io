@@ -4,7 +4,7 @@ interface Props {
   description: string;
   pubDate: Date;
   heroImage?: string;
-  category: string;
+  category: string[];
   tags: string[];
   slug: string;
   readingTime: string;
@@ -18,7 +18,7 @@ const { title, description, pubDate, heroImage, category, tags, slug, readingTim
   class="group break-inside-avoid mb-3"
   data-blog-card
   data-title={title.toLowerCase()}
-  data-category={category.toLowerCase()}
+  data-category={category.join(",").toLowerCase()}
   data-tags={tags.join(",").toLowerCase()}
   data-description={description.toLowerCase()}
 >
@@ -38,11 +38,13 @@ const { title, description, pubDate, heroImage, category, tags, slug, readingTim
     }
     <div class="p-4">
       <div class="flex items-center gap-2 mb-2">
-        <span
-          class="text-[10px] uppercase tracking-wider text-yellow-200/80 bg-yellow-500/10 px-2 py-0.5 font-medium"
-        >
-          {category}
-        </span>
+        {category.map((cat) => (
+          <span
+            class="text-[10px] uppercase tracking-wider text-yellow-200/80 bg-yellow-500/10 px-2 py-0.5 font-medium"
+          >
+            {cat}
+          </span>
+        ))}
         <span class="text-[10px] text-gray-500">{readingTime}</span>
         <span class="text-[10px] text-gray-500 flex items-center gap-0.5 view-count" data-path={`/blogs/${slug}/`}>
           <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

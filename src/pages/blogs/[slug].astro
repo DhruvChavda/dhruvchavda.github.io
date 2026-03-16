@@ -52,12 +52,14 @@ const readingTime = getReadingTime(post.body || "");
       <!-- Post header -->
       <header class="mb-8">
         <div class="flex items-center gap-3 mb-4">
-          <a
-            href={`/blogs/category/${post.data.category.toLowerCase()}/`}
-            class="text-xs bg-yellow-500/10 text-yellow-200 px-3 py-1 rounded-full border border-yellow-500/20 hover:bg-yellow-500/20 transition-colors"
-          >
-            {post.data.category}
-          </a>
+          {post.data.category.map((cat) => (
+            <a
+              href={`/blogs/category/${cat.toLowerCase()}/`}
+              class="text-xs bg-yellow-500/10 text-yellow-200 px-3 py-1 rounded-full border border-yellow-500/20 hover:bg-yellow-500/20 transition-colors"
+            >
+              {cat}
+            </a>
+          ))}
           <ReadingTime minutesRead={readingTime} />
           <span class="text-gray-400 text-sm flex items-center gap-1 view-count" data-path={`/blogs/${post.id}/`}>
             <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

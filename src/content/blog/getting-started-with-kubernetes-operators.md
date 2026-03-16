@@ -2,7 +2,7 @@
 title: "Getting Started with Kubernetes Operators"
 description: "A practical guide to understanding and building Kubernetes Operators for automating complex application lifecycle management."
 pubDate: 2026-03-03
-category: "Kubernetes"
+category: ["Kubernetes"]
 tags: ["kubernetes", "operators", "go", "automation"]
 draft: false
 ---

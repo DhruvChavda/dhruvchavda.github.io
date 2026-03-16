@@ -10,16 +10,22 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     heroImage: z.string().optional(),
     heroImageAlt: z.string().optional().default("Blog post hero image"),
-    category: z.enum([
-      "DevOps",
-      "Kubernetes",
-      "Cloud",
-      "CI-CD",
-      "Platform-Engineering",
-      "Tutorials",
-      "Career",
-      "Tools",
-    ]),
+    category: z
+      .array(
+        z.enum([
+          "DevOps",
+          "Kubernetes",
+          "Cloud",
+          "CI-CD",
+          "Platform-Engineering",
+          "Tutorials",
+          "Career",
+          "Tools",
+          "GitLab",
+          "AWS",
+        ])
+      )
+      .min(1),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     author: z.string().default("Dhruv Chavda"),

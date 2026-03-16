@@ -2,7 +2,7 @@
 title: "Why Platform Engineering is the Future of DevOps"
 description: "Platform engineering is reshaping how teams build and ship software. Here's why it matters and how to get started."
 pubDate: 2026-02-20
-category: "Platform-Engineering"
+category: ["Platform-Engineering"]
 tags: ["platform-engineering", "devops", "developer-experience", "internal-developer-platform"]
 draft: false
 ---

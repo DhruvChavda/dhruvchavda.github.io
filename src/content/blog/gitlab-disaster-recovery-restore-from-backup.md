@@ -2,7 +2,7 @@
 title: "GitLab Disaster Recovery: Restoring from a Backup Volume"
 description: "A complete guide to restoring a self-hosted GitLab instance from a backup volume, with automated scripts and manual steps."
 pubDate: 2026-01-10
-category: "Tutorials"
+category: ["Tutorials", "GitLab"]
 tags: ["gitlab", "disaster-recovery", "backup", "restore", "devops", "ubuntu"]
 draft: false
 ---
