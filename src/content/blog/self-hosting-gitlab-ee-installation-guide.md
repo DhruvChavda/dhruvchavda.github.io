@@ -9,27 +9,27 @@ draft: false
 
 ## Why This Guide Exists
 
-GitLab's official installation docs are fine — they'll get you from zero to a running instance. But they're also scattered across dozens of pages, assume you already know which options to pick, and leave out the parts where things actually go wrong. I spent more time jumping between tabs and Stack Overflow threads than actually installing GitLab the first time around.
+GitLab's official installation docs are fine. They'll get you from zero to a running instance. But they're also scattered across dozens of pages, assume you already know which options to pick, and leave out the parts where things actually go wrong. I spent more time jumping between tabs and Stack Overflow threads than actually installing GitLab the first time around.
 
-This guide is what I wish I had when I started. It's a **single, linear walkthrough** based on real production experience — not a collection of reference pages. Every command here has been run on actual servers, and the troubleshooting section covers errors I've personally hit (and fixed) in production. If something can bite you, I've called it out.
+This guide is what I wish I had when I started. It's a **single, linear walkthrough** based on real production experience, not a collection of reference pages. Every command here has been run on actual servers, and the troubleshooting section covers errors I've personally hit (and fixed) in production. If something can bite you, I've called it out.
 
 ## Why Self-Host GitLab?
 
-There are plenty of managed Git hosting options out there — GitHub, GitLab SaaS, Bitbucket Cloud. They're convenient, well-maintained, and require zero infrastructure work. So why would anyone choose to run their own GitLab instance?
+There are plenty of managed Git hosting options out there: GitHub, GitLab SaaS, Bitbucket Cloud. They're convenient, well-maintained, and require zero infrastructure work. So why would anyone choose to run their own GitLab instance?
 
 For us, it came down to three things: **control**, **compliance**, and **cost**. We needed full ownership of our source code and CI/CD data, the ability to configure authentication exactly how we wanted (SAML SSO with our identity provider), and at our scale, the self-hosted license was significantly cheaper than per-seat SaaS pricing.
 
-Running a self-hosted GitLab instance isn't trivial — but it's far from rocket science either. This guide walks through every step of setting up GitLab Enterprise Edition on a fresh Ubuntu LTS server, from initial system prep all the way through SSL, backups, and SSO configuration.
+Running a self-hosted GitLab instance isn't trivial, but it's far from rocket science either. This guide walks through every step of setting up GitLab Enterprise Edition on a fresh Ubuntu LTS server, from initial system prep all the way through SSL, backups, and SSO configuration.
 
 ## Prerequisites
 
 Before you start, make sure you have the following ready:
 
-- **A fresh Ubuntu server** — Ubuntu 22.04 LTS or 24.04 LTS. Don't install GitLab on a server that's already running other services.
-- **Minimum hardware** — 4 vCPUs, 8 GB RAM, 50 GB disk. For production use with 50+ users, I'd recommend **8 vCPUs, 16 GB RAM, and 100+ GB disk**.
-- **A DNS A record** — pointing your desired domain (e.g., `gitlab.example.com`) to the server's public IP. This needs to be set up before you start, since SSL certificate generation depends on it.
+- **A fresh Ubuntu server:** Ubuntu 22.04 LTS or 24.04 LTS. Don't install GitLab on a server that's already running other services.
+- **Minimum hardware:** 4 vCPUs, 8 GB RAM, 50 GB disk. For production use with 50+ users, I'd recommend **8 vCPUs, 16 GB RAM, and 100+ GB disk**.
+- **A DNS A record** pointing your desired domain (e.g., `gitlab.example.com`) to the server's public IP. This needs to be set up before you start, since SSL certificate generation depends on it.
 - **Root or sudo access** on the server.
-- **Internet access** — the server needs to download packages from GitLab's repository and apt mirrors.
+- **Internet access:** the server needs to download packages from GitLab's repository and apt mirrors.
 - **(Optional)** SMTP credentials if you want email notifications, and SAML IdP details if you're setting up SSO.
 
 Here's a quick checklist to verify before proceeding:
@@ -111,7 +111,7 @@ If you need a specific version (for example, to match an existing backup or stay
 sudo EXTERNAL_URL="https://gitlab.example.com" apt-get install -y gitlab-ee=18.7.0-ee.0
 ```
 
-The version format is `MAJOR.MINOR.PATCH-EDITION.REVISION` — so GitLab EE 18.7.0 becomes `gitlab-ee=18.7.0-ee.0`.
+The version format is `MAJOR.MINOR.PATCH-EDITION.REVISION`, so GitLab EE 18.7.0 becomes `gitlab-ee=18.7.0-ee.0`.
 
 ### Skipping Auto-Reconfigure
 
@@ -277,11 +277,11 @@ After making changes, apply them:
 sudo gitlab-ctl reconfigure
 ```
 
-This command can take a few minutes. It configures all bundled services (PostgreSQL, Redis, Nginx, Puma, Sidekiq, Gitaly, etc.) based on your `gitlab.rb` settings. You'll see a long output of Chef recipes being applied — that's normal.
+This command can take a few minutes. It configures all bundled services (PostgreSQL, Redis, Nginx, Puma, Sidekiq, Gitaly, etc.) based on your `gitlab.rb` settings. You'll see a long output of Chef recipes being applied. That's normal.
 
 ## Step 6: Set Up a Backup Volume
 
-This is one of the most important steps that often gets skipped. Without a proper backup strategy, a disk failure or cloud instance termination means losing everything — repositories, issues, CI/CD pipelines, and user data.
+This is one of the most important steps that often gets skipped. Without a proper backup strategy, a disk failure or cloud instance termination means losing everything: repositories, issues, CI/CD pipelines, and user data.
 
 ### Attach and Format the Volume
 
@@ -435,9 +435,9 @@ sudo gitlab-ctl reconfigure
 4. On first login, GitLab auto-creates an account linked to your SSO identity
 
 Common gotchas:
-- **Reply URL mismatch** — the URL in Entra ID must exactly match `assertion_consumer_service_url` in gitlab.rb
-- **Clock skew** — if the server's time is off by more than a few minutes, SAML validation will fail. Use NTP: `sudo timedatectl set-ntp true`
-- **Certificate rotation** — when your IdP rotates its signing certificate, you'll need to update the fingerprint in gitlab.rb
+- **Reply URL mismatch:** the URL in Entra ID must exactly match `assertion_consumer_service_url` in gitlab.rb
+- **Clock skew:** if the server's time is off by more than a few minutes, SAML validation will fail. Use NTP: `sudo timedatectl set-ntp true`
+- **Certificate rotation:** when your IdP rotates its signing certificate, you'll need to update the fingerprint in gitlab.rb
 
 ## Step 8: Post-Install Verification
 
@@ -513,15 +513,15 @@ Check your inbox for the test email.
 ### `gitlab-ctl reconfigure` Fails
 
 The most common causes:
-- **Port conflicts** — another service is already using port 80 or 443. Check with `sudo lsof -i :80` and `sudo lsof -i :443`.
-- **Insufficient memory** — GitLab needs at least 4 GB of free RAM for reconfigure. Check with `free -h`.
-- **Disk full** — reconfigure writes temporary files. Verify with `df -h`.
+- **Port conflicts:** another service is already using port 80 or 443. Check with `sudo lsof -i :80` and `sudo lsof -i :443`.
+- **Insufficient memory:** GitLab needs at least 4 GB of free RAM for reconfigure. Check with `free -h`.
+- **Disk full:** reconfigure writes temporary files. Verify with `df -h`.
 
 ### Certbot ACME Failures
 
 If Certbot can't obtain a certificate:
-- **Port 80 blocked** — verify `sudo ufw status` shows port 80 open
-- **Behind Cloudflare proxy** — if Cloudflare is proxying traffic, the HTTP-01 challenge may fail. Either temporarily disable Cloudflare proxy (grey cloud the DNS record), or use the DNS-01 challenge instead:
+- **Port 80 blocked:** verify `sudo ufw status` shows port 80 open
+- **Behind Cloudflare proxy:** if Cloudflare is proxying traffic, the HTTP-01 challenge may fail. Either temporarily disable Cloudflare proxy (grey cloud the DNS record), or use the DNS-01 challenge instead:
 
 ```bash
 sudo apt install -y python3-certbot-dns-cloudflare
@@ -529,7 +529,7 @@ sudo apt install -y python3-certbot-dns-cloudflare
 sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini -d gitlab.example.com
 ```
 
-- **DNS not propagated** — verify with `dig gitlab.example.com` that it resolves to your server's IP
+- **DNS not propagated:** verify with `dig gitlab.example.com` that it resolves to your server's IP
 
 ### Services Not Starting
 
@@ -546,8 +546,8 @@ sudo gitlab-ctl tail nginx
 ```
 
 Common issues:
-- **PostgreSQL won't start** — usually a data directory permission issue. Check `ls -la /var/opt/gitlab/postgresql/data/`
-- **Redis won't start** — stale PID file. Remove it: `sudo rm -f /var/opt/gitlab/redis/redis.pid`
+- **PostgreSQL won't start:** usually a data directory permission issue. Check `ls -la /var/opt/gitlab/postgresql/data/`
+- **Redis won't start:** stale PID file. Remove it: `sudo rm -f /var/opt/gitlab/redis/redis.pid`
 
 ### 502 Bad Gateway
 
@@ -555,7 +555,7 @@ This almost always means Puma (the application server) hasn't finished starting 
 
 If it persists:
 - Check Puma logs: `sudo gitlab-ctl tail puma`
-- Verify RAM: `free -h` — if swap is being used heavily, you need more RAM
+- Verify RAM: `free -h`. If swap is being used heavily, you need more RAM
 - Check if Puma workers are running: `ps aux | grep puma`
 
 ### Permission Errors
@@ -576,13 +576,13 @@ sudo chmod 2770 /var/opt/gitlab/git-data/repositories
 
 ## Best Practices
 
-- **Keep `gitlab.rb` in version control** — but exclude `gitlab-secrets.json`. The secrets file contains encryption keys for CI/CD variables, 2FA tokens, and runner authentication tokens. If you lose it, that encrypted data is gone forever.
-- **Set up the backup volume from day one** — don't wait until you have "enough data to worry about." By then it's too late.
-- **Test your restore process** — a backup that's never been tested is just a hope. Spin up a test instance and restore from your backup volume at least quarterly.
-- **Use GitLab's bundled Prometheus and Grafana** — they're pre-configured to monitor all GitLab services. Access Grafana at `https://gitlab.example.com/-/grafana`.
-- **Plan your upgrade path** — GitLab requires sequential version upgrades. You can't jump from 16.x to 18.x directly. Check the [upgrade path tool](https://gitlab-com.gitlab.io/support/toolbox/upgrade-path/) before upgrading.
-- **Keep the OS updated** — regular `apt update && apt upgrade` for security patches. GitLab's packages won't be affected by OS updates.
-- **Pin your GitLab version** — to prevent accidental upgrades during `apt upgrade`, hold the package:
+- **Keep `gitlab.rb` in version control**, but exclude `gitlab-secrets.json`. The secrets file contains encryption keys for CI/CD variables, 2FA tokens, and runner authentication tokens. If you lose it, that encrypted data is gone forever.
+- **Set up the backup volume from day one.** Don't wait until you have "enough data to worry about." By then it's too late.
+- **Test your restore process.** A backup that's never been tested is just a hope. Spin up a test instance and restore from your backup volume at least quarterly.
+- **Use GitLab's bundled Prometheus and Grafana.** They're pre-configured to monitor all GitLab services. Access Grafana at `https://gitlab.example.com/-/grafana`.
+- **Plan your upgrade path.** GitLab requires sequential version upgrades. You can't jump from 16.x to 18.x directly. Check the [upgrade path tool](https://gitlab-com.gitlab.io/support/toolbox/upgrade-path/) before upgrading.
+- **Keep the OS updated.** Regular `apt update && apt upgrade` for security patches. GitLab's packages won't be affected by OS updates.
+- **Pin your GitLab version** to prevent accidental upgrades during `apt upgrade`. Hold the package:
 
 ```bash
 sudo apt-mark hold gitlab-ee
@@ -598,13 +598,13 @@ sudo apt-mark hold gitlab-ee
 
 ## Key Takeaways
 
-- Self-hosting GitLab gives you full control over your source code, authentication, and infrastructure — but it comes with operational responsibility.
-- Use **Certbot** for SSL certificates — it's more flexible and easier to debug than GitLab's built-in Let's Encrypt.
+- Self-hosting GitLab gives you full control over your source code, authentication, and infrastructure, but it comes with operational responsibility.
+- Use **Certbot** for SSL certificates. It's more flexible and easier to debug than GitLab's built-in Let's Encrypt.
 - The **backup volume** is your lifeline. Set it up on day one, automate the sync, and test restores regularly.
 - `gitlab-secrets.json` is the single most critical file in your GitLab installation. Lose it, and all encrypted data (CI/CD variables, 2FA keys, runner tokens) becomes unrecoverable.
-- GitLab's `gitlab-ctl reconfigure` is your swiss army knife — it applies configuration changes, fixes permissions, and restarts services.
+- GitLab's `gitlab-ctl reconfigure` is your swiss army knife. It applies configuration changes, fixes permissions, and restarts services.
 - Start with the basics (install, SSL, backups) and layer on complexity (SSO, monitoring, CI runners) incrementally.
 
-In the next post, I cover [disaster recovery — restoring GitLab from a backup volume](/blogs/gitlab-disaster-recovery-restore-from-backup) when things go sideways. If you're setting up a production instance, I'd strongly recommend reading that one too — because a backup you've never tested is just a hope.
+In the next post, I cover [disaster recovery: restoring GitLab from a backup volume](/blogs/gitlab-disaster-recovery-restore-from-backup) when things go sideways. If you're setting up a production instance, I'd strongly recommend reading that one too, because a backup you've never tested is just a hope.
 
 I've also open-sourced the restore and prerequisites check scripts on GitHub at [gitlab-scripts](https://github.com/DhruvChavda/gitlab-scripts). Feel free to use them, fork them, or adapt them to your setup.

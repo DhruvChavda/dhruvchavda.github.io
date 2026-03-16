@@ -1,6 +1,6 @@
 ---
 title: "GitLab Disaster Recovery: Restoring from a Backup Volume"
-description: "A complete guide to restoring a self-hosted GitLab instance from a backup volume — automated scripts and manual steps included."
+description: "A complete guide to restoring a self-hosted GitLab instance from a backup volume, with automated scripts and manual steps."
 pubDate: 2026-01-10
 category: "Tutorials"
 tags: ["gitlab", "disaster-recovery", "backup", "restore", "devops", "ubuntu"]
@@ -9,17 +9,17 @@ draft: false
 
 ## Why This Guide Exists
 
-GitLab's official docs cover `gitlab-backup restore` — the tar-based approach. It works, but it's slow, doesn't include config or secrets, and requires you to have a working GitLab instance *before* you can restore into it. When your server is dead and you're staring at a backup volume at 3 AM, the last thing you want is to piece together a restore process from five different doc pages.
+GitLab's official docs cover `gitlab-backup restore`, the tar-based approach. It works, but it's slow, doesn't include config or secrets, and requires you to have a working GitLab instance *before* you can restore into it. When your server is dead and you're staring at a backup volume at 3 AM, the last thing you want is to piece together a restore process from five different doc pages.
 
-This guide covers the **volume-based restore approach** — a faster, more complete alternative that I've used in real disaster recovery scenarios. Every command, every permission, every gotcha is documented here because I've hit them all personally. If you haven't set up GitLab yet, start with my [installation guide](/blogs/self-hosting-gitlab-ee-installation-guide) first — it covers the initial setup and backup volume configuration that this guide assumes you already have.
+This guide covers the **volume-based restore approach**: a faster, more complete alternative that I've used in real disaster recovery scenarios. Every command, every permission, every gotcha is documented here because I've hit them all personally. If you haven't set up GitLab yet, start with my [installation guide](/blogs/self-hosting-gitlab-ee-installation-guide) first. It covers the initial setup and backup volume configuration that this guide assumes you already have.
 
 ## When Disaster Strikes
 
 Nobody thinks about disaster recovery until they need it. And by then, it's usually too late to figure out the details.
 
-I've been through two GitLab recovery scenarios now — one planned (migrating to a bigger server) and one unplanned (cloud provider disk corruption). The planned one went smoothly because we had scripts and a tested process. The unplanned one was a stressful 3 AM scramble that exposed every gap in our documentation. This guide exists so that neither you nor I ever have to go through that again.
+I've been through two GitLab recovery scenarios now: one planned (migrating to a bigger server) and one unplanned (cloud provider disk corruption). The planned one went smoothly because we had scripts and a tested process. The unplanned one was a stressful 3 AM scramble that exposed every gap in our documentation. This guide exists so that neither you nor I ever have to go through that again.
 
-We use a **volume-based backup approach** — instead of GitLab's built-in `gitlab-backup create` (which produces a tar archive), we continuously sync the entire GitLab data directory to a separate mounted volume. This means our backup contains everything: repositories, the database, configuration, secrets, SSL certificates, and logs. The restore process is essentially "attach the volume to a fresh server, install the same GitLab version, and point it at the data."
+We use a **volume-based backup approach**. Instead of GitLab's built-in `gitlab-backup create` (which produces a tar archive), we continuously sync the entire GitLab data directory to a separate mounted volume. This means our backup contains everything: repositories, the database, configuration, secrets, SSL certificates, and logs. The restore process is essentially "attach the volume to a fresh server, install the same GitLab version, and point it at the data."
 
 It's simpler than it sounds, but the details matter. Let's go through all of them.
 
@@ -52,27 +52,27 @@ Before jumping into the restore process, you need to understand what's on the ba
 ### The Critical File: `gitlab-secrets.json`
 
 This file contains the encryption keys for:
-- **CI/CD variables** — all those secret environment variables in your pipelines
-- **Two-factor authentication (2FA) keys** — every user's TOTP secret
-- **Runner authentication tokens** — how your CI runners authenticate with GitLab
-- **Database encryption keys** — used for encrypting sensitive columns
+- **CI/CD variables:** all those secret environment variables in your pipelines
+- **Two-factor authentication (2FA) keys:** every user's TOTP secret
+- **Runner authentication tokens:** how your CI runners authenticate with GitLab
+- **Database encryption keys:** used for encrypting sensitive columns
 
 If you lose `gitlab-secrets.json`, **all encrypted data becomes permanently unrecoverable**. There is no way to regenerate these keys. This is the single most important file in your backup.
 
 ### The VERSION File
 
-Located at `gitlab/gitlab-rails/VERSION`, this file contains the exact GitLab version that was running when the backup was created (e.g., `18.7.0-ee`). You **must** install this exact version on the new server. Version mismatches — even minor ones — can corrupt the database or cause data loss.
+Located at `gitlab/gitlab-rails/VERSION`, this file contains the exact GitLab version that was running when the backup was created (e.g., `18.7.0-ee`). You **must** install this exact version on the new server. Version mismatches, even minor ones, can corrupt the database or cause data loss.
 
 ## Prerequisites
 
 You'll need:
 
-- **A fresh Ubuntu 22.04 or 24.04 LTS instance** — don't try to restore onto a server that already has GitLab installed. Start clean.
+- **A fresh Ubuntu 22.04 or 24.04 LTS instance.** Don't try to restore onto a server that already has GitLab installed. Start clean.
 - **The backup volume** attached to the new instance. This is typically a block storage volume from your cloud provider that was detached from the old server.
 - **Root or sudo access** on the new instance.
-- **Internet access** — needed to download the GitLab package.
-- **DNS record** — either update the A record to point to the new server, or use the `--url` flag during restore if the domain is different.
-- **Enough disk space** — the root volume should have at least as much free space as the backup volume uses, plus 20% buffer.
+- **Internet access:** needed to download the GitLab package.
+- **DNS record:** either update the A record to point to the new server, or use the `--url` flag during restore if the domain is different.
+- **Enough disk space:** the root volume should have at least as much free space as the backup volume uses, plus 20% buffer.
 
 Quick pre-check:
 
@@ -123,7 +123,7 @@ Add the entry to fstab:
 echo 'UUID=<YOUR-VOLUME-UUID> /mnt/gitlab-data ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
 ```
 
-The `nofail` option is important — it prevents the system from failing to boot if the volume is temporarily unavailable.
+The `nofail` option is important. It prevents the system from failing to boot if the volume is temporarily unavailable.
 
 ### Verify the Structure
 
@@ -157,7 +157,7 @@ If any of these are missing, your backup is incomplete and you should not procee
 
 ## Step 2: Run the Prerequisites Check
 
-Before running the actual restore, use the prerequisites check script to validate your environment. This script is read-only — it doesn't modify anything on the system.
+Before running the actual restore, use the prerequisites check script to validate your environment. This script is read-only and doesn't modify anything on the system.
 
 ```bash
 sudo ./gitlab-restore-prerequisites.sh
@@ -201,9 +201,9 @@ The script runs four categories of checks:
 ### Interpreting the Output
 
 Each check shows one of three statuses:
-- **PASS** — check passed, good to go
-- **WARN** — non-critical issue, restore will likely work but something may need attention
-- **FAIL** — critical issue, do not proceed until resolved
+- **PASS:** check passed, good to go
+- **WARN:** non-critical issue, restore will likely work but something may need attention
+- **FAIL:** critical issue, do not proceed until resolved
 
 Example output:
 
@@ -233,11 +233,11 @@ Example output:
 [PASS] Port 443: available
 ```
 
-If you see any **FAIL** results, fix them before continuing. **WARN** results are informational — for example, a missing `authorized_keys` just means Git-over-SSH won't work until users add their SSH keys through the web UI.
+If you see any **FAIL** results, fix them before continuing. **WARN** results are informational. For example, a missing `authorized_keys` just means Git-over-SSH won't work until users add their SSH keys through the web UI.
 
 ## Step 3: Automated Restore (Script)
 
-The restore script handles the entire process automatically. It has six phases and includes safety checks at each step. Both scripts — `gitlab-restore.sh` and `gitlab-restore-prerequisites.sh` — are open-sourced on GitHub at [gitlab-scripts](https://github.com/DhruvChavda/gitlab-scripts).
+The restore script handles the entire process automatically. It has six phases and includes safety checks at each step. Both scripts (`gitlab-restore.sh` and `gitlab-restore-prerequisites.sh`) are open-sourced on GitHub at [gitlab-scripts](https://github.com/DhruvChavda/gitlab-scripts).
 
 ### Usage
 
@@ -330,14 +330,14 @@ root:root       → /etc/gitlab/gitlab-secrets.json (mode 0600)
 
 This is the most complex phase. The script:
 
-1. **Kills stale processes** — if any runit/runsvdir processes are left over from a previous GitLab install, they'll block reconfigure. The script force-kills them:
+1. **Kills stale processes.** If any runit/runsvdir processes are left over from a previous GitLab install, they'll block reconfigure. The script force-kills them:
 
 ```bash
 pkill -9 runsvdir 2>/dev/null || true
 pkill -9 runsv 2>/dev/null || true
 ```
 
-2. **Cleans runtime files** — removes stale PID files, socket files, and Redis dumps that would prevent services from starting:
+2. **Cleans runtime files.** Removes stale PID files, socket files, and Redis dumps that would prevent services from starting:
 
 ```bash
 rm -f /var/opt/gitlab/redis/redis.pid
@@ -347,13 +347,13 @@ rm -f /var/opt/gitlab/postgresql/.s.PGSQL.*
 
 3. **Backs up `gitlab.rb`** before any domain replacement (saved as `gitlab.rb.pre-restore-<timestamp>`)
 
-4. **Replaces the domain** — if you used `--url`, it runs a global find-and-replace in `gitlab.rb` to update all domain references (external_url, SAML URLs, OAuth redirect URIs)
+4. **Replaces the domain.** If you used `--url`, it runs a global find-and-replace in `gitlab.rb` to update all domain references (external_url, SAML URLs, OAuth redirect URIs)
 
-5. **Runs `gitlab-ctl reconfigure`** — applies all configuration and starts services
+5. **Runs `gitlab-ctl reconfigure`** to apply all configuration and start services
 
-6. **Runs `gitlab-ctl restart`** — ensures all services are fully restarted with the new configuration
+6. **Runs `gitlab-ctl restart`** to ensure all services are fully restarted with the new configuration
 
-7. **Health check** — waits for GitLab to respond on its configured URL
+7. **Health check:** waits for GitLab to respond on its configured URL
 
 #### Phase 6: Post-Restore Data Validation
 
@@ -381,7 +381,7 @@ If the script isn't available, or you need to troubleshoot a specific phase, her
 cat /mnt/gitlab-data/gitlab/gitlab-rails/VERSION
 ```
 
-Note the output exactly — for example, `18.7.0-ee`. The `-ee` suffix means Enterprise Edition.
+Note the output exactly, for example `18.7.0-ee`. The `-ee` suffix means Enterprise Edition.
 
 ### 4.2: Install the Exact GitLab Version
 
@@ -488,7 +488,7 @@ sleep 3
 ps aux | grep -E 'runsvdir|runsv' | grep -v grep
 ```
 
-This is the "nuclear option" and it's intentional. Stale runit processes will hold locks that prevent `gitlab-ctl reconfigure` from running correctly. Graceful shutdown (`kill -15`) doesn't work reliably with runit in this scenario — you need SIGKILL.
+This is the "nuclear option" and it's intentional. Stale runit processes will hold locks that prevent `gitlab-ctl reconfigure` from running correctly. Graceful shutdown (`kill -15`) doesn't work reliably with runit in this scenario, so you need SIGKILL.
 
 ### 4.7: Clean Runtime Files
 
@@ -541,7 +541,7 @@ sudo gitlab-ctl restart
 sudo gitlab-ctl status
 ```
 
-Reconfigure takes 3-5 minutes. You'll see a long stream of Chef recipe output — this is normal. Watch for any red error lines.
+Reconfigure takes 3-5 minutes. You'll see a long stream of Chef recipe output. This is normal. Watch for any red error lines.
 
 ### 4.10: Health Check
 
@@ -563,7 +563,7 @@ After the restore completes (whether via script or manual), run through this che
 sudo gitlab-ctl status
 ```
 
-All services should show `run`. Count them — a typical GitLab EE instance has 15-17 services.
+All services should show `run`. Count them: a typical GitLab EE instance has 15-17 services.
 
 ### Comprehensive Health Check
 
@@ -607,18 +607,18 @@ These verify that all artifact, LFS object, and upload files referenced in the d
 
 Beyond the automated checks, manually verify:
 
-1. **Web UI** — open the GitLab URL in a browser, log in with an existing account
-2. **SSO login** — if SAML/OAuth is configured, test the SSO flow end-to-end
-3. **Git clone** — clone a repository over HTTPS and SSH:
+1. **Web UI:** open the GitLab URL in a browser, log in with an existing account
+2. **SSO login:** if SAML/OAuth is configured, test the SSO flow end-to-end
+3. **Git clone:** clone a repository over HTTPS and SSH:
 
 ```bash
 git clone https://gitlab.example.com/some-group/some-repo.git
 git clone git@gitlab.example.com:some-group/some-repo.git
 ```
 
-4. **Git push** — make a test commit and push it
-5. **CI/CD** — trigger a pipeline and verify it runs successfully
-6. **Container registry** — if using GitLab's container registry, try pulling an image
+4. **Git push:** make a test commit and push it
+5. **CI/CD:** trigger a pipeline and verify it runs successfully
+6. **Container registry:** if using GitLab's container registry, try pulling an image
 
 ## Step 6: DNS and SSL
 
@@ -669,8 +669,8 @@ sudo gitlab-ctl restart nginx
 
 If you're behind Cloudflare proxy, watch out for these issues:
 
-- **ERR_TOO_MANY_REDIRECTS** — this happens when Cloudflare's SSL mode is set to "Flexible" but GitLab is configured for HTTPS. Set Cloudflare SSL to **Full (Strict)**.
-- **Certbot HTTP-01 challenge fails** — Cloudflare proxy intercepts the ACME challenge. Either temporarily disable proxy (grey cloud) during cert issuance, or use the DNS-01 challenge:
+- **ERR_TOO_MANY_REDIRECTS:** this happens when Cloudflare's SSL mode is set to "Flexible" but GitLab is configured for HTTPS. Set Cloudflare SSL to **Full (Strict)**.
+- **Certbot HTTP-01 challenge fails:** Cloudflare proxy intercepts the ACME challenge. Either temporarily disable proxy (grey cloud) during cert issuance, or use the DNS-01 challenge:
 
 ```bash
 sudo apt install -y python3-certbot-dns-cloudflare
@@ -744,7 +744,7 @@ sudo chown -R gitlab-psql:gitlab-psql /var/opt/gitlab/postgresql
 sudo gitlab-ctl restart postgresql
 ```
 
-If PostgreSQL complains about version mismatch (e.g., the backup was made with PostgreSQL 14 but the new GitLab bundles PostgreSQL 16), you may need to install the exact same GitLab version to get the matching PostgreSQL version. GitLab handles PostgreSQL upgrades during its own upgrade process — you can't skip versions.
+If PostgreSQL complains about version mismatch (e.g., the backup was made with PostgreSQL 14 but the new GitLab bundles PostgreSQL 16), you may need to install the exact same GitLab version to get the matching PostgreSQL version. GitLab handles PostgreSQL upgrades during its own upgrade process, so you can't skip versions.
 
 ### ERR_TOO_MANY_REDIRECTS
 
@@ -813,22 +813,22 @@ sudo gitlab-rake gitlab:shell:setup
 
 ## Best Practices
 
-- **Always run the prerequisites check first** — it takes 30 seconds and can save you hours of debugging.
-- **Test your restore process on a staging instance** — don't wait for an actual disaster to find out your backup is incomplete or your scripts have bugs. We run a restore drill quarterly.
-- **Keep volume snapshots, not just live sync** — rsync gives you a live copy, but if your data gets corrupted, the corruption syncs too. Cloud provider snapshots give you point-in-time recovery.
-- **Document the backup volume UUID** — when you're scrambling at 3 AM, you don't want to guess which volume to mount. Keep the UUID, mount point, and cloud provider volume ID in your runbook.
-- **Protect `gitlab-secrets.json` above all else** — consider keeping an extra encrypted copy outside your primary backup. If the backup volume itself fails, this is the one file you absolutely cannot lose.
-- **Don't use `--skip-validation` for real disaster recovery** — the validation rake tasks exist to catch data integrity issues early. Skip them only for testing or when you plan to run them manually afterward.
-- **Run regular DR drills** — restore to a test server at least once a quarter. The process should be boring and predictable. If it's exciting, your documentation needs work.
-- **Keep the restore scripts on the backup volume** — store `gitlab-restore.sh` and `gitlab-restore-prerequisites.sh` directly on the backup volume at `/mnt/gitlab-data/gitlab-restore/`. That way, when you mount the volume on a fresh server, everything you need is right there.
+- **Always run the prerequisites check first.** It takes 30 seconds and can save you hours of debugging.
+- **Test your restore process on a staging instance.** Don't wait for an actual disaster to find out your backup is incomplete or your scripts have bugs. We run a restore drill quarterly.
+- **Keep volume snapshots, not just live sync.** Rsync gives you a live copy, but if your data gets corrupted, the corruption syncs too. Cloud provider snapshots give you point-in-time recovery.
+- **Document the backup volume UUID.** When you're scrambling at 3 AM, you don't want to guess which volume to mount. Keep the UUID, mount point, and cloud provider volume ID in your runbook.
+- **Protect `gitlab-secrets.json` above all else.** Consider keeping an extra encrypted copy outside your primary backup. If the backup volume itself fails, this is the one file you absolutely cannot lose.
+- **Don't use `--skip-validation` for real disaster recovery.** The validation rake tasks exist to catch data integrity issues early. Skip them only for testing or when you plan to run them manually afterward.
+- **Run regular DR drills.** Restore to a test server at least once a quarter. The process should be boring and predictable. If it's exciting, your documentation needs work.
+- **Keep the restore scripts on the backup volume.** Store `gitlab-restore.sh` and `gitlab-restore-prerequisites.sh` directly on the backup volume at `/mnt/gitlab-data/gitlab-restore/`. That way, when you mount the volume on a fresh server, everything you need is right there.
 
 ## Key Takeaways
 
-- **Version matching is non-negotiable** — install the exact GitLab version from the backup's VERSION file. No exceptions.
-- **`gitlab-secrets.json` is irreplaceable** — lose it and all encrypted data (CI vars, 2FA, runner tokens) is gone forever.
+- **Version matching is non-negotiable.** Install the exact GitLab version from the backup's VERSION file. No exceptions.
+- **`gitlab-secrets.json` is irreplaceable.** Lose it and all encrypted data (CI vars, 2FA, runner tokens) is gone forever.
 - The **volume-based backup approach** (symlinks to a mounted volume) is simpler and faster than `gitlab-backup restore` for full-instance recovery.
-- **Stale runit processes** are the most common cause of restore failures. Kill them with SIGKILL — graceful shutdown doesn't work in this scenario.
-- **Permissions matter** — incorrect ownership on PostgreSQL, Redis, or Git data directories will prevent services from starting. The permission list in Step 4.5 covers everything.
-- **Test your DR process regularly** — a backup you've never restored from is just a hope, not a plan.
+- **Stale runit processes** are the most common cause of restore failures. Kill them with SIGKILL, because graceful shutdown doesn't work in this scenario.
+- **Permissions matter.** Incorrect ownership on PostgreSQL, Redis, or Git data directories will prevent services from starting. The permission list in Step 4.5 covers everything.
+- **Test your DR process regularly.** A backup you've never restored from is just a hope, not a plan.
 
-If you haven't set up your backup volume yet, check out my previous post on [self-hosting GitLab](/blogs/self-hosting-gitlab-ee-installation-guide) — Step 6 covers the complete backup setup. And if you want to grab the scripts directly, they're on GitHub at [gitlab-scripts](https://github.com/DhruvChavda/gitlab-scripts).
+If you haven't set up your backup volume yet, check out my previous post on [self-hosting GitLab](/blogs/self-hosting-gitlab-ee-installation-guide). Step 6 covers the complete backup setup. And if you want to grab the scripts directly, they're on GitHub at [gitlab-scripts](https://github.com/DhruvChavda/gitlab-scripts).
