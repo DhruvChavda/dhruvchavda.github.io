@@ -18,6 +18,7 @@ import About from "../components/About.astro";
 import Highlight from "../components/Highlight.astro";
 import Schema from "../components/Schema.astro";
 import Topmate from "../icons/Topmate.astro";
+import Download from "../icons/Download.astro";
 
 const title = "Dhruv Chavda — DevOps/SRE & Platform Engineer | CKA • ICA Certified";
 const description = "DevOps/SRE & Platform Engineer with 4+ years of experience in Kubernetes, Docker, AWS, and platform automation. CKA & ICA certified specialist in Istio, K8s Operators, and cost optimization.";
@@ -60,7 +61,7 @@ const socialProfiles = [
 				<a
 					href="https://www.linkedin.com/in/dhruvchavda2712/"
 					target="_blank"
-					rel="noopener"
+					rel="noopener noreferrer"
 					class="flex justify-center items-center md:flex hidden"
 				>
 					<Badge>Nice to meet you! 😁</Badge>
@@ -104,6 +105,17 @@ const socialProfiles = [
 					<Mail class="size-4 lg:size-6" />
 					chavdadhruv0505@gmail.com
 				</SocialPill>
+
+				<a
+					href="/resume/Dhruv_Chavda_Senior_Devops_CV.pdf"
+					download="Dhruv_Chavda_Senior_Devops_CV.pdf"
+					class="rounded-full text-white border border-yellow-400/50 flex justify-center items-center gap-x-2
+						py-1 px-2 lg:py-2 lg:px-4 text-xs lg:text-base bg-yellow-400/10 hover:scale-110 hover:bg-yellow-400/20 hover:border-yellow-400/80 hover:shadow-lg hover:shadow-yellow-400/20 transition-all duration-300 font-medium"
+					aria-label="Download Dhruv Chavda's resume"
+				>
+					<Download class="size-4 lg:size-6" />
+					Download Resume
+				</a>
 			</nav>
 		</SectionContainer>
 		<SectionContainer id="about">

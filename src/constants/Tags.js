@@ -1,6 +1,9 @@
 // Local icon components (no CDN equivalent or CDN broken)
 import Aws from "../icons/Aws.astro";
 import SlackIcon from "../icons/Slack.astro";
+import GitLeaksIcon from "../icons/GitLeaks.astro";
+import InfisicalIcon from "../icons/Infisical.astro";
+import EntraIDIcon from "../icons/EntraID.astro";
 import Flexibility from "../icons/Flexibility.astro";
 import Team from "../icons/Team.astro";
 import Iniciative from "../icons/Iniciative.astro";
@@ -19,6 +22,7 @@ export const TAGS = {
   // DevOps & Infrastructure
   TERRAFORM: cdn("Terraform", "terraform"),
   AWS: local("Amazon Web Services", Aws),
+  CLOUDFORMATION: cdn("AWS CloudFormation", "amazonaws"),
   KUBERNETES: cdn("Kubernetes", "kubernetes"),
   ISTIO: cdn("Istio (Service Mesh)", "istio"),
   HELM: cdn("Helm", "helm"),
@@ -29,7 +33,9 @@ export const TAGS = {
   // CI/CD & Monitoring
   GITLAB: cdn("GitLab Pipelines", "gitlab"),
   JENKINS: cdn("Jenkins", "jenkins"),
+  GITLEAKS: local("GitLeaks", GitLeaksIcon),
   PROMETHEUS: cdn("Prometheus", "prometheus"),
+  ALERTMANAGER: cdn("Alertmanager", "prometheus"),
   GRAFANA: cdn("Grafana", "grafana"),
   DATADOG: cdn("Datadog", "datadog"),
   SUMOLOGIC: cdn("Sumologic", "sumologic"),
@@ -44,6 +50,11 @@ export const TAGS = {
 
   // Communication & Collaboration
   SLACK: local("Slack Workflows", SlackIcon),
+  JIRA: cdn("Jira", "jira"),
+  WORDPRESS: cdn("WordPress", "wordpress"),
+  AIRFLOW: cdn("Apache Airflow", "apacheairflow"),
+  INFISICAL: local("Infisical", InfisicalIcon),
+  ENTRA: local("Microsoft Entra ID", EntraIDIcon),
 
   // Soft Skills (local SVG components — no CDN equivalent)
   FLEXIBILITY: local("Flexibility and Adaptability", Flexibility),
