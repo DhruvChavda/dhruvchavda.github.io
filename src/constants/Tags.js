@@ -22,7 +22,7 @@ export const TAGS = {
   // DevOps & Infrastructure
   TERRAFORM: cdn("Terraform", "terraform"),
   AWS: local("Amazon Web Services", Aws),
-  CLOUDFORMATION: cdn("AWS CloudFormation", "amazonaws"),
+  CLOUDFORMATION: local("AWS CloudFormation", Aws),
   KUBERNETES: cdn("Kubernetes", "kubernetes"),
   ISTIO: cdn("Istio (Service Mesh)", "istio"),
   HELM: cdn("Helm", "helm"),
@@ -33,6 +33,8 @@ export const TAGS = {
   // CI/CD & Monitoring
   GITLAB: cdn("GitLab Pipelines", "gitlab"),
   JENKINS: cdn("Jenkins", "jenkins"),
+  ARGOCD: cdn("Argo CD", "argo"),
+  ARGO_ROLLOUTS: cdn("Argo Rollouts", "argo"),
   GITLEAKS: local("GitLeaks", GitLeaksIcon),
   PROMETHEUS: cdn("Prometheus", "prometheus"),
   ALERTMANAGER: cdn("Alertmanager", "prometheus"),
