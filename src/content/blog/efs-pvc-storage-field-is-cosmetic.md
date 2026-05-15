@@ -11,10 +11,10 @@ draft: false
 
 I was in the middle of migrating 300+ WordPress sites onto an EKS cluster — each site getting its own namespace, its own Helm release, its own PVC backed by EFS. The chart's defaults requested `3Gi` per PVC. I didn't think twice about it; the wp-content tarballs I was importing averaged ~500 MB, so 3 GiB looked generous.
 
-Then I tarballed one site I'd forgotten about: 1.4 GB. Restored it. Worked fine. Restored another: 5.8 GB. Also fine. I ran `du -sh /bitnami/wordpress` inside the pod expecting to see "out of space" errors waiting for me, and instead saw this:
+Then I tarballed one site I'd forgotten about: 4.2 GB. Restored it. Worked fine. Restored another: 5.8 GB. Also fine. I ran `du -sh /bitnami/wordpress` inside the pod expecting to see "out of space" errors waiting for me, and instead saw this:
 
 ```
-1.8G    /bitnami/wordpress
+5.8G    /bitnami/wordpress
 ```
 
 The PVC still said `3Gi` capacity. The pod had used almost *double* the supposed limit and was happily writing more. Either I was about to hit a wall, or — and this is what turned out to be the case — **the 3Gi number was never enforcing anything**.
