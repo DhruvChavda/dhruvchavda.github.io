@@ -167,4 +167,4 @@ If the second number is "8.0E" or some petabyte figure, congratulations: your PV
 
 ---
 
-*This came up while I was migrating WordPress sites onto EFS-backed shared storage. Happy to chat about EFS migrations or EKS storage on [LinkedIn](https://www.linkedin.com/in/dhruvchavda/) — the kind of thing that doesn't show up in tutorials but bites you on production day.*
+*This came up while I was migrating WordPress sites onto EFS-backed shared storage. Happy to chat about EFS migrations or EKS storage on [LinkedIn](https://www.linkedin.com/in/dhruvchavda2712/) — the kind of thing that doesn't show up in tutorials but bites you on production day.*
