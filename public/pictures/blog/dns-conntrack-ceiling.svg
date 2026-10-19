@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" fill="none">
+  <rect width="900" height="420" rx="12" fill="#0a0a1a"/>
+  <text x="450" y="34" text-anchor="middle" fill="#e2e8f0" font-family="system-ui" font-size="16" font-weight="600">The hidden ceiling: DNS queries answered per second</text>
+  <text x="450" y="54" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="11">Approximate, from CoreDNS and node-local-dns request metrics</text>
+
+  <!-- Grid + y axis -->
+  <line x1="80" y1="320" x2="860" y2="320" stroke="#475569" stroke-width="1"/>
+  <line x1="80" y1="257.5" x2="860" y2="257.5" stroke="#1e293b" stroke-width="1"/>
+  <line x1="80" y1="195" x2="860" y2="195" stroke="#1e293b" stroke-width="1"/>
+  <line x1="80" y1="132.5" x2="860" y2="132.5" stroke="#1e293b" stroke-width="1"/>
+  <line x1="80" y1="70" x2="860" y2="70" stroke="#1e293b" stroke-width="1"/>
+  <text x="72" y="324" text-anchor="end" fill="#94a3b8" font-family="system-ui" font-size="11">0</text>
+  <text x="72" y="261" text-anchor="end" fill="#94a3b8" font-family="system-ui" font-size="11">2k</text>
+  <text x="72" y="199" text-anchor="end" fill="#94a3b8" font-family="system-ui" font-size="11">4k</text>
+  <text x="72" y="136" text-anchor="end" fill="#94a3b8" font-family="system-ui" font-size="11">6k</text>
+  <text x="72" y="74" text-anchor="end" fill="#94a3b8" font-family="system-ui" font-size="11">8k</text>
+
+  <!-- Phase dividers -->
+  <line x1="380" y1="66" x2="380" y2="320" stroke="#475569" stroke-dasharray="4 4"/>
+  <line x1="640" y1="66" x2="640" y2="320" stroke="#475569" stroke-dasharray="4 4"/>
+  <line x1="730" y1="66" x2="730" y2="320" stroke="#475569" stroke-dasharray="4 4"/>
+
+  <!-- A: normal, varies -->
+  <polyline points="80,240 105,226 130,208 155,222 180,246 205,236 230,212 255,200 280,226 305,247 330,232 355,214 380,236" stroke="#94a3b8" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+  <!-- B: ceiling 1,830 -->
+  <polyline points="380,236 384,263 640,263" stroke="#f87171" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+  <!-- C: 2 nodes 3,650 -->
+  <polyline points="640,263 644,206 730,206" stroke="#fde68a" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+  <!-- D: fixed ~7,000+ -->
+  <polyline points="730,206 736,98 760,94 785,100 810,92 835,97 860,94" stroke="#86efac" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+
+  <!-- Callouts -->
+  <text x="230" y="186" text-anchor="middle" fill="#cbd5e1" font-family="system-ui" font-size="12">2,200–3,900 qps</text>
+  <text x="230" y="170" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="11">real traffic: varies by time of day</text>
+  <text x="510" y="250" text-anchor="middle" fill="#fca5a5" font-family="system-ui" font-size="12" font-weight="600">dead flat at ~1,830 qps for 42 hours</text>
+  <text x="510" y="290" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="11">“same as yesterday” because it was capped</text>
+  <text x="685" y="192" text-anchor="middle" fill="#fde68a" font-family="system-ui" font-size="12" font-weight="600">~3,650</text>
+  <text x="685" y="178" text-anchor="middle" fill="#fde68a" font-family="system-ui" font-size="10">2 nodes = 2×</text>
+  <text x="795" y="84" text-anchor="middle" fill="#86efac" font-family="system-ui" font-size="12" font-weight="600">~7,000+ served</text>
+
+  <!-- Phase labels -->
+  <text x="230" y="342" text-anchor="middle" fill="#cbd5e1" font-family="system-ui" font-size="11">5 days before</text>
+  <text x="230" y="357" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="10">CoreDNS spread over nodes</text>
+  <text x="510" y="342" text-anchor="middle" fill="#fca5a5" font-family="system-ui" font-size="11">all 4 CoreDNS pods on one node</text>
+  <text x="510" y="357" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="10">table full, new flows admitted only as old ones expire</text>
+  <text x="685" y="342" text-anchor="middle" fill="#fde68a" font-family="system-ui" font-size="11">spread to 2</text>
+  <text x="685" y="357" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="10">both full</text>
+  <text x="795" y="342" text-anchor="middle" fill="#86efac" font-family="system-ui" font-size="11">NodeLocal DNSCache</text>
+  <text x="795" y="357" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="10">no ceiling</text>
+
+  <text x="450" y="395" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="12">A rate that stays perfectly flat while demand varies is a capacity ceiling, not traffic.</text>
+</svg>
